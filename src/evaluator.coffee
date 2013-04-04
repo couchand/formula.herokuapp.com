@@ -27,6 +27,8 @@ class Factory
         Builder = DecimalLiteral
       when 'integer'
         Builder = IntegerLiteral
+      when 'reference'
+        Builder = Reference
       else
         throw 'unknown node type'
     new Builder node
@@ -124,6 +126,12 @@ class IntegerLiteral
     @value = parseInt node.value
   evaluate: (data) ->
     @value
+
+class Reference
+  constructor: (node) ->
+    @name = node.name.join '.'
+  evaluate: (data) ->
+    data[@name]
 
 evaluate = (formula, data) ->
   f = factory.build formula

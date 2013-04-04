@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DEBUG="$1"
+
+if [ "$DEBUG" == "" ] ; then
+    DEBUG="false"
+fi
+
+
+jison --debug "$DEBUG" -o dst/parser.js src/formula.jison

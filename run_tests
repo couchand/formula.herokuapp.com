@@ -1,0 +1,13 @@
+#!/usr/local/bin/node
+p = require('./dst/parser');
+
+function assertEqual( a, b ) {
+    if ( a != b ) {
+        throw "Expected " + a + " to equal " + b;
+    }
+}
+
+assertEqual( '5', p.parse('5') );
+assertEqual( 'today', p.parse('today()').function );
+assertEqual( 0, p.parse('today()').parameters.length );
+assertEqual( '5', p.parse('(5)').formula );

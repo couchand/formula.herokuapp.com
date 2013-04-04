@@ -7,7 +7,9 @@ function assertEqual( a, b ) {
     }
 }
 
-assertEqual( '5', p.parse('   5   ') );
+var integer = p.parse('   5   ');
+assertEqual( 'integer', integer.expression );
+assertEqual( '5', integer.value );
 
 var decimal = p.parse('3.2');
 assertEqual( 'decimal', decimal.expression );
@@ -22,14 +24,14 @@ var today = p.parse(' today  (  ) ');
 assertEqual( 'today', today.function );
 assertEqual( 0, today.parameters.length );
 
-assertEqual( '5', p.parse(' (  5  )  ').formula );
+assertEqual( '5', p.parse(' (  5  )  ').formula.value );
 
 var sum = p.parse('   sum (  3 ,  1 ,  8  ) ');
 assertEqual( 'function', sum.expression );
 assertEqual( 3, sum.parameters.length );
-assertEqual( '3', sum.parameters[0] );
-assertEqual( '1', sum.parameters[1] );
-assertEqual( '8', sum.parameters[2] );
+assertEqual( '3', sum.parameters[0].value );
+assertEqual( '1', sum.parameters[1].value );
+assertEqual( '8', sum.parameters[2].value );
 
 var inverse = p.parse('   not  ( today \n\n(   )\n)\n');
 assertEqual( 'function', inverse.expression );
@@ -47,12 +49,12 @@ assertEqual( '$User', p.parse('$User.Name').name[0] );
 
 var expr = p.parse('2+\n7*5');
 assertEqual( 'add', expr.left.expression );
-assertEqual( '2', expr.left.left );
-assertEqual( '7', expr.left.right );
+assertEqual( '2', expr.left.left.value );
+assertEqual( '7', expr.left.right.value );
 assertEqual( 'multiply', expr.expression );
-assertEqual( '5', expr.right );
+assertEqual( '5', expr.right.value );
 
 var nest = p.parse('2+today()');
 assertEqual( 'add', nest.expression );
-assertEqual( '2', nest.left );
+assertEqual( '2', nest.left.value );
 assertEqual( 'today', nest.right.function );

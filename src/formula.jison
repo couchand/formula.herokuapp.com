@@ -163,6 +163,7 @@ identifier
 
 literal
   : int_literal
+    { $$ = { expression: 'integer', value: $int_literal }; }
   | dec_literal
   | quoted_string
   ;

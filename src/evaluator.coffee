@@ -152,6 +152,11 @@ funcs = {
   'isblank': (p) -> !p[0]? or p[0] is ''
   'nullvalue': (p) -> if p[0]? then p[0] else p[1]
   'blankvalue': (p) -> if p[0]? and p[0] isnt '' then p[0] else p[1]
+  'case': (p) ->
+    elseIndex = p.length - 1
+    for i in [1...elseIndex] when i % 2 is 1
+      return p[i+1] if p[i] is p[0]
+    return p[elseIndex]
 }
 
 evaluate = (formula, data) ->

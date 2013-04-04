@@ -14,6 +14,10 @@ assertEqual( 'decimal', decimal.expression );
 assertEqual( '3', decimal.whole );
 assertEqual( '2', decimal.part );
 
+var str = p.parse('"foobar"');
+assertEqual( 'string', str.expression );
+assertEqual( 'foobar', str.string );
+
 var today = p.parse(' today  (  ) ');
 assertEqual( 'today', today.function );
 assertEqual( 0, today.parameters.length );

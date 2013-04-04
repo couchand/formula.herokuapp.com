@@ -26,6 +26,7 @@
 ","                         { return ',';          }
 \$?[a-zA-Z][_a-zA-Z0-9]*    { return 'IDENTIFIER'; }
 [0-9]+                      { return 'NUM';        }
+'"'[^"]*'"'                 { return 'STRING';     }
 <<EOF>>                     { return 'EOF';        }
 
 /lex
@@ -163,6 +164,7 @@ identifier
 literal
   : int_literal
   | dec_literal
+  | quoted_string
   ;
 
 int_literal
@@ -172,4 +174,13 @@ int_literal
 dec_literal
   : int_literal '.' int_literal
     { $$ = { expression: 'decimal', whole: $int_literal1, part: $int_literal2 }; }
+  ;
+
+quoted_string
+  : str_literal
+    { $$ = { expression: 'string', string: $str_literal.substring(1,$str_literal.length-1) }; }
+  ;
+
+str_literal
+  : STRING
   ;

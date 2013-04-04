@@ -3,7 +3,7 @@ var p = require('./dst/parser');
 
 function assertEqual( a, b ) {
     if ( a != b ) {
-        throw "Expected " + a + " to equal " + b;
+        throw "Expected " + b + " to equal " + a;
     }
 }
 

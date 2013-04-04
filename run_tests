@@ -29,3 +29,5 @@ assertEqual( 'today', inverse.parameters[0].function );
 var field = p.parse('relationship__r.field__c');
 assertEqual( 'relationship__r', field[0] );
 assertEqual( 'field__c', field[1] );
+
+assertEqual( '$User', p.parse('$User.Name')[0] );

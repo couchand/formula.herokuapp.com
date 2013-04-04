@@ -72,6 +72,8 @@
                     case 'comparison':
                         infix = tree.comparator;
                         break;
+                    case 'decimal':
+                        return tree.whole + '.' + tree.part;
                     default:
                         return tree;
                 }

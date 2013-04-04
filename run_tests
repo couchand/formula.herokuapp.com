@@ -10,6 +10,7 @@ function assertEqual( a, b ) {
 assertEqual( '5', p.parse('   5   ') );
 
 var decimal = p.parse('3.2');
+assertEqual( 'decimal', decimal.expression );
 assertEqual( '3', decimal.whole );
 assertEqual( '2', decimal.part );
 

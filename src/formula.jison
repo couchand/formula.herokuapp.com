@@ -171,5 +171,5 @@ int_literal
 
 dec_literal
   : int_literal '.' int_literal
-    { $$ = { whole: $int_literal1, part: $int_literal2 }; }
+    { $$ = { expression: 'decimal', whole: $int_literal1, part: $int_literal2 }; }
   ;

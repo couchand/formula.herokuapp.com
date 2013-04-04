@@ -164,6 +164,16 @@ funcs = {
   'text': (p) -> '' + p[0]
   'trim': (p) -> p[0].trim()
   'value': (p) -> parseFloat p[0]
+  'abs': (p) -> Math.abs p[0]
+  'ceiling': (p) -> Math.ceil p[0]
+  'exp': (p) -> Math.exp p[0]
+  'floor': (p) -> Math.floor p[0]
+  'ln': (p) -> Math.log p[0]
+  'max': (p) -> Math.max.apply null, p
+  'min': (p) -> Math.min.apply null, p
+  'mod': (p) -> p[0] % p[1]
+  'round': (p) -> Math.round p[0]
+  'sqrt': (p) -> Math.sqrt p[0]
 }
 
 evaluate = (formula, data) ->

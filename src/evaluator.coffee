@@ -32,37 +32,47 @@ class Factory
 factory = new Factory()
 
 class InfixExpression
-  constructor: (node) ->
+  constructor: (node, @operator) ->
     @left = factory.build node.left
     @right = factory.build node.right
 
-class Addition extends InfixExpression
   evaluate: (data) ->
-    @left.evaluate data + @right.evaluate data
+    @operator @left.evaluate(data), @right.evaluate(data)
+
+class Addition extends InfixExpression
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left + right
 
 class Subtraction extends InfixExpression
-  evaluate: (data) ->
-    @left.evaluate data - @right.evaluate data
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left - right
 
 class Multiplication extends InfixExpression
-  evaluate: (data) ->
-    @left.evaluate data * @right.evaluate data
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left * right
 
 class Division extends InfixExpression
-  evaluate: (data) ->
-    @left.evaluate data / @right.evaluate data
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left / right
 
 class Concatenation extends InfixExpression
-  evaluate: (data) ->
-    @left.evaluate data + @right.evaluate data
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left + right
 
 class Conjunction extends InfixExpression
-  evaluate: (data) ->
-    @left.evaluate data && @right.evaluate data
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left && right
 
 class Disjunction extends InfixExpression
-  evaluate: (data) ->
-    @left.evaluate data || @right.evaluate data
+  constructor: (node) ->
+    super node, (left,  right) ->
+      left || right
 
 class Comparison extends InfixExpression
   constructor: (node) ->
@@ -75,7 +85,7 @@ class Comparison extends InfixExpression
 class Comparator
   constructor: (@comparator) ->
   compare: (left, right) ->
-    switch comparator
+    switch @comparator
       when '=', '=='
         left == right
       when '!=', '<>'
@@ -89,8 +99,13 @@ class Comparator
       when '>='
         left >= right
 
+class Literal
+  constructor: (@value) ->
+  evaluate: (data) -> @value
+
 evaluate = (formula, data) ->
   f = factory.build formula
+  console.log(f)
   f.evaluate data
 
 module.exports = evaluate

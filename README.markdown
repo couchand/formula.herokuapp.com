@@ -1,4 +1,4 @@
-force.com formula farser
+force.com formula parser
 ========================
 
 parse force.com formula syntax.

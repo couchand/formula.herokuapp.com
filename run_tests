@@ -1,5 +1,5 @@
 #!/usr/local/bin/node
-p = require('./dst/parser');
+var p = require('./dst/parser');
 
 function assertEqual( a, b ) {
     if ( a != b ) {
@@ -8,8 +8,11 @@ function assertEqual( a, b ) {
 }
 
 assertEqual( '5', p.parse('5') );
-assertEqual( 'today', p.parse('today()').function );
-assertEqual( 0, p.parse('today()').parameters.length );
+
+var today = p.parse('today()');
+assertEqual( 'today', today.function );
+assertEqual( 0, today.parameters.length );
+
 assertEqual( '5', p.parse('(5)').formula );
 
 var sum = p.parse('sum(3, 1, 8)');

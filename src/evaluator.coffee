@@ -22,11 +22,11 @@ class Factory
       when 'parens'
         Builder = Parens
       when 'string'
-        Builder = String
+        Builder = StringLiteral
       when 'decimal'
-        Builder = Decimal
+        Builder = DecimalLiteral
       when 'integer'
-        Builder = Integer
+        Builder = IntegerLiteral
       else
         throw 'unknown node type'
     new Builder node
@@ -107,13 +107,19 @@ class Parens
   evaluate: (data) ->
     @formula.evaluate data
 
-class Decimal
+class StringLiteral
+  constructor: (node) ->
+    @value = node.string
+  evaluate: (data) ->
+    @value
+
+class DecimalLiteral
   constructor: (node) ->
     @value = parseFloat( node.whole + '.' + node.part )
   evaluate: (data) ->
     @value
 
-class Integer
+class IntegerLiteral
   constructor: (node) ->
     @value = parseInt node.value
   evaluate: (data) ->

@@ -103,7 +103,7 @@ class Comparator
 
 class Parens
   constructor: (node) ->
-    @formula = node.formula
+    @formula = factory.build node.formula
   evaluate: (data) ->
     @formula.evaluate data
 

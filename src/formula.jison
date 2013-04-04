@@ -38,9 +38,7 @@ root
 
 formula
   : function_call
-    { $$ = $function_call; }
   | expr
-    { $$ = $expr; }
   ;
 
 function_call
@@ -54,7 +52,6 @@ function
 
 expr
   : literal
-    { $$ = $literal; }
   | '(' formula ')'
     { $$ = { formula: $formula }; }
   ;

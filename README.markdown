@@ -48,6 +48,8 @@ properties to complete the description.
  * `decimal`: decimal literal
    * `whole`: the integer part
    * `part`: the decimal part
+ * `integer`: integer literal
+   * `value`: value
 
 dependencies
 ------------

@@ -43,9 +43,9 @@ formula
 
 function_call
   : identifier '(' ')'
-    { $$ = { function: $identifier, parameters: [] }; }
+    { $$ = { expression: 'function', function: $identifier, parameters: [] }; }
   | identifier '(' parameters ')'
-    { $$ = { function: $identifier, parameters: $parameters }; }
+    { $$ = { expression: 'function', function: $identifier, parameters: $parameters }; }
   ;
 
 parameters
@@ -91,38 +91,38 @@ expr4
 
 exp_expr
   : expr '^' expr0
-    { $$ = { base: $expr, pow: $expr0 }; }
+    { $$ = { expression: 'exponent', left: $expr, right: $expr0 }; }
   ;
 
 mult_expr
   : expr0 '*' expr1
-    { $$ = { factors: [$expr0, $expr1] }; }
+    { $$ = { expression: 'multiply', left: $expr0, right: $expr1 }; }
   | expr0 '/' expr1
-    { $$ = { dividend: $expr0, divisor: $expr1 }; }
+    { $$ = { expression: 'divide', left: $expr0, right: $expr1 }; }
   ;
 
 add_expr
   : expr1 '+' expr2
-    { $$ = { terms: [$expr1, $expr2] }; }
+    { $$ = { expression: 'add', left: $expr1, right: $expr2 }; }
   | expr1 '-' expr2
-    { $$ = { differee: $expr1, differant: $expr2 }; }
+    { $$ = { expression: 'subtract', left: $expr1, right: $expr2 }; }
   | expr1 '&' expr2
-    { $$ = { concat: [$expr1, $expr2] }; }
+    { $$ = { expression: 'concat', left: $expr1, right: $expr2 }; }
   ;
 
 and_expr
   : expr2 '&&' expr3
-    { $$ = { conjunction: [$expr2, $expr3] }; }
+    { $$ = { expression: 'conjunction', left: $expr2, right: $expr3 }; }
   ;
 
 or_expr
   : expr3 '||' expr4
-    { $$ = { disjunction: [$expr3, $expr4] }; }
+    { $$ = { expression: 'disjunction', left: $expr3, right: $expr4 }; }
   ;
 
 comp_expr
   : expr4 comparator primary
-    { $$ = { comparator: $comparator, left: $expr4, right: $primary }; }
+    { $$ = { expression: 'comparison', comparator: $comparator, left: $expr4, right: $primary }; }
   ;
 
 comparator
@@ -141,14 +141,19 @@ primary
   | function_call
   | reference
   | '(' formula ')'
-    { $$ = { formula: $formula }; }
+    { $$ = { expression: 'parens', formula: $formula }; }
   ;
 
 reference
+  : identifiers
+    { $$ = { expression: 'reference', name: $identifiers }; }
+  ;
+
+identifiers
   : identifier
     { $$ = [$identifier]; }
-  | reference '.' identifier
-    { $$ = $reference; $$.push( $identifier ); }
+  | identifiers '.' identifier
+    { $$ = $identifiers; $$.push( $identifier ); }
   ;
 
 identifier

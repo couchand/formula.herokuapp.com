@@ -16,30 +16,34 @@ assertEqual( 0, today.parameters.length );
 assertEqual( '5', p.parse('(5)').formula );
 
 var sum = p.parse('sum(3, 1, 8)');
+assertEqual( 'function', sum.expression );
 assertEqual( 3, sum.parameters.length );
 assertEqual( '3', sum.parameters[0] );
 assertEqual( '1', sum.parameters[1] );
 assertEqual( '8', sum.parameters[2] );
 
 var inverse = p.parse('not(today())');
+assertEqual( 'function', inverse.expression );
 assertEqual( 'not', inverse.function );
 assertEqual( 1, inverse.parameters.length );
+assertEqual( 'function', inverse.parameters[0].expression );
 assertEqual( 'today', inverse.parameters[0].function );
 
 var field = p.parse('relationship__r.field__c');
-assertEqual( 'relationship__r', field[0] );
-assertEqual( 'field__c', field[1] );
+assertEqual( 'reference', field.expression );
+assertEqual( 'relationship__r', field.name[0] );
+assertEqual( 'field__c', field.name[1] );
 
-assertEqual( '$User', p.parse('$User.Name')[0] );
+assertEqual( '$User', p.parse('$User.Name').name[0] );
 
 var expr = p.parse('2+7*5');
-assertEqual( 2, expr.factors.length );
-assertEqual( 2, expr.factors[0].terms.length );
-assertEqual( '2', expr.factors[0].terms[0] );
-assertEqual( '7', expr.factors[0].terms[1] );
-assertEqual( '5', expr.factors[1] );
+assertEqual( 'add', expr.left.expression );
+assertEqual( '2', expr.left.left );
+assertEqual( '7', expr.left.right );
+assertEqual( 'multiply', expr.expression );
+assertEqual( '5', expr.right );
 
 var nest = p.parse('2+today()');
-assertEqual( 2, nest.terms.length );
-assertEqual( '2', nest.terms[0] );
-assertEqual( 'today', nest.terms[1].function );
+assertEqual( 'add', nest.expression );
+assertEqual( '2', nest.left );
+assertEqual( 'today', nest.right.function );

@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <script type="text/javascript" src="../dst/parser.js"></script>
+        <script>
+            function prettyPrint( text ) {
+                var tree = parser.parse( text );
+                document.getElementById('tree').value =
+                    JSON.stringify( tree, null, 2 );
+                var formatted = stringify( tree );
+                return formatted;
+            }
+
+            function stringify( tree, indent, tab ) {
+                var infix, params, i, prefix = '';
+
+                if ( null == indent ) {
+                    indent = 0;
+                }
+                if ( null == tab ) {
+                    tab = '    ';
+                }
+
+                for ( i = 0; i < indent; i++ ) {
+                    prefix += tab;
+                }
+
+                switch ( tree.expression ) {
+                    case 'function':
+                        if ( 0 == tree.parameters.length ) {
+                            return tree.function + '()';
+                        }
+                        params = [];
+                        for ( i in tree.parameters ) {
+                            params.push(
+                                prefix + tab +
+                                stringify( tree.parameters[i], indent+1, tab )
+                            );
+                        }
+                        return tree.function + '(\n' +
+                               params.join( ',\n' ) +
+                               '\n' + prefix + ')';
+                    case 'reference':
+                        return tree.name.join('.');
+                    case 'parens':
+                        return '( ' +
+                               stringify( tree.formula, indent+1, tab ) +
+                               ' )';
+                    case 'exponent':
+                        infix = '^';
+                        break;
+                    case 'multiply':
+                        infix = '*';
+                        break;
+                    case 'divide':
+                        infix = '/';
+                        break;
+                    case 'add':
+                        infix = '+';
+                        break;
+                    case 'subtract':
+                        infix = '-';
+                        break;
+                    case 'concat':
+                        infix = '&';
+                        break;
+                    case 'conjunction':
+                        infix = '&&';
+                        break;
+                    case 'disjunction':
+                        infix = '||';
+                        break;
+                    case 'comparison':
+                        infix = tree.comparator;
+                        break;
+                    default:
+                        return tree;
+                }
+
+                return stringify( tree.left, indent+1, tab ) +
+                       ' ' + infix + ' ' +
+                       stringify( tree.right, indent+1, tab );
+            }
+
+            function ppTextArea( id ) {
+                var el = document.getElementById( id );
+                el.value = prettyPrint( el.value );
+            }
+        </script>
+    </head>
+    <body>
+        <textarea rows="30" cols="100" id="src"></textarea>
+        <textarea rows="30" cols="60" id="tree"></textarea>
+        <br>
+        <button onClick="ppTextArea('src');">Pretty Print!</button>
+    </body>

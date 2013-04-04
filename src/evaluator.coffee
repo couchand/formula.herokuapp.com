@@ -29,6 +29,8 @@ class Factory
         Builder = IntegerLiteral
       when 'reference'
         Builder = Reference
+      when 'function'
+        Builder = FunctionCall
       else
         throw 'unknown node type'
     new Builder node
@@ -132,6 +134,20 @@ class Reference
     @name = node.name.join '.'
   evaluate: (data) ->
     data[@name]
+
+class FunctionCall
+  constructor: (node) ->
+    @params = (factory.build param for param in node.parameters)
+    @func = funcs[node.function.toLowerCase()]
+  evaluate: (data) ->
+    vals = (param.evaluate data for param in @params)
+    @func vals
+
+funcs = {
+  'and': (p) -> p.reduce (a, b) -> a && b,
+  'or': (p) -> p.reduce (a, b) -> a || b,
+  'not': (p) -> !p[0]
+}
 
 evaluate = (formula, data) ->
   f = factory.build formula

@@ -25,3 +25,7 @@ var inverse = p.parse('not(today())');
 assertEqual( 'not', inverse.function );
 assertEqual( 1, inverse.parameters.length );
 assertEqual( 'today', inverse.parameters[0].function );
+
+var field = p.parse('relationship__r.field__c');
+assertEqual( 'relationship__r', field[0] );
+assertEqual( 'field__c', field[1] );

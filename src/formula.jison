@@ -24,7 +24,7 @@
 "&"                     { return '&';          }
 "."                     { return '.';          }
 ","                     { return ',';          }
-[a-zA-Z][a-zA-Z0-9]+    { return 'IDENTIFIER'; }
+[a-zA-Z][_a-zA-Z0-9]+   { return 'IDENTIFIER'; }
 [0-9]+                  { return 'NUM';        }
 <<EOF>>                 { return 'EOF';        }
 
@@ -43,14 +43,10 @@ formula
   ;
 
 function_call
-  : function '(' ')'
-    { $$ = { function: $function, parameters: [] }; }
-  | function '(' parameters ')'
-    { $$ = { function: $function, parameters: $parameters }; }
-  ;
-
-function
-  : IDENTIFIER
+  : identifier '(' ')'
+    { $$ = { function: $identifier, parameters: [] }; }
+  | identifier '(' parameters ')'
+    { $$ = { function: $identifier, parameters: $parameters }; }
   ;
 
 parameters
@@ -65,9 +61,25 @@ parameter
   ;
 
 expr
+  : primary
+  ;
+
+primary
   : literal
+  | reference
   | '(' formula ')'
     { $$ = { formula: $formula }; }
+  ;
+
+reference
+  : identifier
+    { $$ = [$identifier]; }
+  | reference '.' identifier
+    { $$ = $reference; $$.push( $identifier ); }
+  ;
+
+identifier
+  : IDENTIFIER
   ;
 
 literal

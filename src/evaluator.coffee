@@ -147,6 +147,11 @@ funcs = {
   'and': (p) -> p.reduce (a, b) -> a && b,
   'or': (p) -> p.reduce (a, b) -> a || b,
   'not': (p) -> !p[0]
+  'if': (p) -> if p[0] then p[1] else p[2]
+  'isnull': (p) -> !p[0]?
+  'isblank': (p) -> !p[0]? or p[0] is ''
+  'nullvalue': (p) -> if p[0]? then p[0] else p[1]
+  'blankvalue': (p) -> if p[0]? and p[0] is not '' then p[0] else p[1]
 }
 
 evaluate = (formula, data) ->

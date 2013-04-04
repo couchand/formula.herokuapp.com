@@ -148,22 +148,20 @@ funcs = {
   'or': (p) -> p.reduce (a, b) -> a or b
   'not': (p) -> !p[0]
   'if': (p) -> if p[0] then p[1] else p[2]
-  'isnull': (p) -> !p[0]?
-  'isblank': (p) -> !p[0]? or p[0] is ''
-  'nullvalue': (p) -> if p[0]? then p[0] else p[1]
-  'blankvalue': (p) -> if p[0]? and p[0] isnt '' then p[0] else p[1]
   'case': (p) ->
     elseIndex = p.length - 1
     for i in [1...elseIndex] when i % 2 is 1
       return p[i+1] if p[i] is p[0]
     return p[elseIndex]
-  'br': (p) -> '\n'
+
   'ispickval': (p) -> p[0] is p[1]
   'isnumber': (p) -> p[0] is '' + parseFloat p[0]
-  'len': (p) -> p[0].length
-  'text': (p) -> '' + p[0]
-  'trim': (p) -> p[0].trim()
-  'value': (p) -> parseFloat p[0]
+
+  'isnull': (p) -> !p[0]?
+  'isblank': (p) -> !p[0]? or p[0] is ''
+  'nullvalue': (p) -> if p[0]? then p[0] else p[1]
+  'blankvalue': (p) -> if p[0]? and p[0] isnt '' then p[0] else p[1]
+
   'abs': (p) -> Math.abs p[0]
   'ceiling': (p) -> Math.ceil p[0]
   'exp': (p) -> Math.exp p[0]
@@ -174,15 +172,21 @@ funcs = {
   'mod': (p) -> p[0] % p[1]
   'round': (p) -> Math.round p[0]
   'sqrt': (p) -> Math.sqrt p[0]
+
   'begins': (p) -> p[0].startsWith p[1]
+  'br': (p) -> '\n'
   'find': (p) -> p[1].indexOf p[0]
   'left': (p) -> p[0].substr 0, p[1]
+  'len': (p) -> p[0].length
   'lower': (p) -> p[0].toLowerCase()
   'mid': (p) -> p[0].substr p[1], p[2]
+  'text': (p) -> '' + p[0]
+  'trim': (p) -> p[0].trim()
   'right': (p) -> p[0].substr -p[1]
   'replace': (p) -> p[0].replace p[1], p[2]
   'upper': (p) -> p[0].toUpperCase()
   'urlencode': (p) -> encodeURI p[0]
+  'value': (p) -> parseFloat p[0]
 }
 
 evaluate = (formula, data) ->

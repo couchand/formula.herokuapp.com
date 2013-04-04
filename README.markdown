@@ -43,6 +43,11 @@ node has various other properties to complete the description.
    * `right`: right side of comparison
  * `parens`: parenthesized expression
    * `formula`: nested formula
+ * `string`: quoted string
+   * `string`: the string value
+ * `decimal`: decimal literal
+   * `whole`: the integer part
+   * `part`: the decimal part
 
 dependencies
 ------------

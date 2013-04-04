@@ -17,11 +17,11 @@ type in some formula syntax and click 'pretty print!'.
 documentation
 -------------
 
-parses formula syntax and returns a JSON representation
+parses formula syntax and returns a json representation
 of the parse tree.  leaf nodes are just their text value,
-and inner nodes have an `expression` property which
-describes what type of node they are.  each type of inner
-node has various other properties to complete the description.
+inner nodes are objects.  they have an `expression`
+property that describes their node type, and other
+properties to complete the description.
 
  * `function`: function call
    * `function`: text name

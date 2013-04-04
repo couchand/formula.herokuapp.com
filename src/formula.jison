@@ -3,7 +3,7 @@
 %lex
 %%
 
-\s*                     { /* ignore */         }
+\s+                     { /* ignore */         }
 "("                     { return '(';          }
 ")"                     { return ')';          }
 "+"                     { return '+';          }
@@ -25,17 +25,20 @@
 "."                     { return '.';          }
 [a-zA-Z][a-zA-Z0-9]+    { return 'IDENTIFIER'; }
 [0-9]+                  { return 'NUM';        }
+<<EOF>>                 { return 'EOF';        }
+
+/lex
 
 %%
 
 root
-  : formula
+  : formula EOF
     { return $formula; }
   ;
 
 formula
   : literal
-    { return $literal; }
+    { $$ = $literal; }
   ;
 
 literal

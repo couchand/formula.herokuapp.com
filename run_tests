@@ -31,3 +31,15 @@ assertEqual( 'relationship__r', field[0] );
 assertEqual( 'field__c', field[1] );
 
 assertEqual( '$User', p.parse('$User.Name')[0] );
+
+var expr = p.parse('2+7*5');
+assertEqual( 2, expr.factors.length );
+assertEqual( 2, expr.factors[0].terms.length );
+assertEqual( '2', expr.factors[0].terms[0] );
+assertEqual( '7', expr.factors[0].terms[1] );
+assertEqual( '5', expr.factors[1] );
+
+var nest = p.parse('2+today()');
+assertEqual( 2, nest.terms.length );
+assertEqual( '2', nest.terms[0] );
+assertEqual( 'today', nest.terms[1].function );

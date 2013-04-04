@@ -38,8 +38,7 @@ root
   ;
 
 formula
-  : function_call
-  | expr
+  : expr
   ;
 
 function_call
@@ -61,11 +60,85 @@ parameter
   ;
 
 expr
-  : primary
+  : exp_expr
+  | expr0
+  ;
+
+expr0
+  : mult_expr
+  | expr1
+  ;
+
+expr1
+  : add_expr
+  | expr2
+  ;
+
+expr2
+  : and_expr
+  | expr3
+  ;
+
+expr3
+  : or_expr
+  | expr4
+  ;
+
+expr4
+  : comp_expr
+  | primary
+  ;
+
+exp_expr
+  : expr '^' expr0
+    { $$ = { base: $expr, pow: $expr0 }; }
+  ;
+
+mult_expr
+  : expr0 '*' expr1
+    { $$ = { factors: [$expr0, $expr1] }; }
+  | expr0 '/' expr1
+    { $$ = { dividend: $expr0, divisor: $expr1 }; }
+  ;
+
+add_expr
+  : expr1 '+' expr2
+    { $$ = { terms: [$expr1, $expr2] }; }
+  | expr1 '-' expr2
+    { $$ = { differee: $expr1, differant: $expr2 }; }
+  | expr1 '&' expr2
+    { $$ = { concat: [$expr1, $expr2] }; }
+  ;
+
+and_expr
+  : expr2 '&&' expr3
+    { $$ = { conjunction: [$expr2, $expr3] }; }
+  ;
+
+or_expr
+  : expr3 '||' expr4
+    { $$ = { disjunction: [$expr3, $expr4] }; }
+  ;
+
+comp_expr
+  : expr4 comparator primary
+    { $$ = { comparator: $comparator, left: $expr4, right: $primary }; }
+  ;
+
+comparator
+  : '=='
+  | '='
+  | '<>'
+  | '!='
+  | '<='
+  | '<'
+  | '>='
+  | '>'
   ;
 
 primary
   : literal
+  | function_call
   | reference
   | '(' formula ')'
     { $$ = { formula: $formula }; }

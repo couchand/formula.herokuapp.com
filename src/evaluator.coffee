@@ -157,6 +157,13 @@ funcs = {
     for i in [1...elseIndex] when i % 2 is 1
       return p[i+1] if p[i] is p[0]
     return p[elseIndex]
+  'br': (p) -> '\n'
+  'ispickval': (p) -> p[0] is p[1]
+  'isnumber': (p) -> p[0] is '' + parseFloat p[0]
+  'len': (p) -> p[0].length
+  'text': (p) -> '' + p[0]
+  'trim': (p) -> p[0].trim()
+  'value': (p) -> parseFloat p[0]
 }
 
 evaluate = (formula, data) ->

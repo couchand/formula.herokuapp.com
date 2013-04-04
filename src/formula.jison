@@ -37,8 +37,26 @@ root
   ;
 
 formula
+  : function_call
+    { $$ = $function_call; }
+  | expr
+    { $$ = $expr; }
+  ;
+
+function_call
+  : function '(' ')'
+    { $$ = { function: $function, parameters: [] }; }
+  ;
+
+function
+  : IDENTIFIER
+  ;
+
+expr
   : literal
     { $$ = $literal; }
+  | '(' formula ')'
+    { $$ = { formula: $formula }; }
   ;
 
 literal

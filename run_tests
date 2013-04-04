@@ -11,3 +11,9 @@ assertEqual( '5', p.parse('5') );
 assertEqual( 'today', p.parse('today()').function );
 assertEqual( 0, p.parse('today()').parameters.length );
 assertEqual( '5', p.parse('(5)').formula );
+
+var sum = p.parse('sum(3, 1, 8)');
+assertEqual( 3, sum.parameters.length );
+assertEqual( '3', sum.parameters[0] );
+assertEqual( '1', sum.parameters[1] );
+assertEqual( '8', sum.parameters[2] );

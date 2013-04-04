@@ -23,6 +23,7 @@
 "||"                    { return '||';         }
 "&"                     { return '&';          }
 "."                     { return '.';          }
+","                     { return ',';          }
 [a-zA-Z][a-zA-Z0-9]+    { return 'IDENTIFIER'; }
 [0-9]+                  { return 'NUM';        }
 <<EOF>>                 { return 'EOF';        }
@@ -44,10 +45,23 @@ formula
 function_call
   : function '(' ')'
     { $$ = { function: $function, parameters: [] }; }
+  | function '(' parameters ')'
+    { $$ = { function: $function, parameters: $parameters }; }
   ;
 
 function
   : IDENTIFIER
+  ;
+
+parameters
+  : parameter
+    { $$ = [$parameter]; }
+  | parameters ',' parameter
+    { $$ = $parameters; $$.push( $parameter ); }
+  ;
+
+parameter
+  : formula
   ;
 
 expr

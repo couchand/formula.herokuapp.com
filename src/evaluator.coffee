@@ -176,6 +176,7 @@ funcs = {
   'begins': (p) -> p[0].startsWith p[1]
   'br': (p) -> '\n'
   'find': (p) -> p[1].indexOf p[0]
+  'hyperlink': (p) -> "<a href='#{p[0]}'>#{p[1]}</a>"
   'left': (p) -> p[0].substr 0, p[1]
   'len': (p) -> p[0].length
   'lower': (p) -> p[0].toLowerCase()

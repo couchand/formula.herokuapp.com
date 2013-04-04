@@ -73,12 +73,12 @@ class Concatenation extends InfixExpression
 class Conjunction extends InfixExpression
   constructor: (node) ->
     super node, (left,  right) ->
-      left && right
+      left and right
 
 class Disjunction extends InfixExpression
   constructor: (node) ->
     super node, (left,  right) ->
-      left || right
+      left or right
 
 class Comparison extends InfixExpression
   constructor: (node) ->
@@ -93,9 +93,9 @@ class Comparator
   compare: (left, right) ->
     switch @comparator
       when '=', '=='
-        left == right
+        left is right
       when '!=', '<>'
-        left != right
+        left isnt right
       when '<'
         left < right
       when '>'
@@ -144,14 +144,14 @@ class FunctionCall
     @func vals
 
 funcs = {
-  'and': (p) -> p.reduce (a, b) -> a && b,
-  'or': (p) -> p.reduce (a, b) -> a || b,
+  'and': (p) -> p.reduce (a, b) -> a and b
+  'or': (p) -> p.reduce (a, b) -> a or b
   'not': (p) -> !p[0]
   'if': (p) -> if p[0] then p[1] else p[2]
   'isnull': (p) -> !p[0]?
   'isblank': (p) -> !p[0]? or p[0] is ''
   'nullvalue': (p) -> if p[0]? then p[0] else p[1]
-  'blankvalue': (p) -> if p[0]? and p[0] is not '' then p[0] else p[1]
+  'blankvalue': (p) -> if p[0]? and p[0] isnt '' then p[0] else p[1]
 }
 
 evaluate = (formula, data) ->

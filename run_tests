@@ -9,6 +9,10 @@ function assertEqual( a, b ) {
 
 assertEqual( '5', p.parse('   5   ') );
 
+var decimal = p.parse('3.2');
+assertEqual( '3', decimal.whole );
+assertEqual( '2', decimal.part );
+
 var today = p.parse(' today  (  ) ');
 assertEqual( 'today', today.function );
 assertEqual( 0, today.parameters.length );

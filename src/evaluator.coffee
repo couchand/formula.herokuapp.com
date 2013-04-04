@@ -25,8 +25,10 @@ class Factory
         Builder = String
       when 'decimal'
         Builder = Decimal
+      when 'integer'
+        Builder = Integer
       else
-        Builder = Literal
+        throw 'unknown node type'
     new Builder node
 
 factory = new Factory()
@@ -99,9 +101,17 @@ class Comparator
       when '>='
         left >= right
 
-class Literal
-  constructor: (@value) ->
-  evaluate: (data) -> @value
+class Decimal
+  constructor: (node) ->
+    @value = parseFloat( node.whole + '.' + node.part )
+  evaluate: (data) ->
+    @value
+
+class Integer
+  constructor: (node) ->
+    @value = parseInt node.value
+  evaluate: (data) ->
+    @value
 
 evaluate = (formula, data) ->
   f = factory.build formula

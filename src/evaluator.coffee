@@ -174,6 +174,15 @@ funcs = {
   'mod': (p) -> p[0] % p[1]
   'round': (p) -> Math.round p[0]
   'sqrt': (p) -> Math.sqrt p[0]
+  'begins': (p) -> p[0].startsWith p[1]
+  'find': (p) -> p[1].indexOf p[0]
+  'left': (p) -> p[0].substr 0, p[1]
+  'lower': (p) -> p[0].toLowerCase()
+  'mid': (p) -> p[0].substr p[1], p[2]
+  'right': (p) -> p[0].substr -p[1]
+  'replace': (p) -> p[0].replace p[1], p[2]
+  'upper': (p) -> p[0].toUpperCase()
+  'urlencode': (p) -> encodeURI p[0]
 }
 
 evaluate = (formula, data) ->

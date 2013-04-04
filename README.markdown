@@ -3,13 +3,55 @@ Force.com Formula Parser
 
 Parse Force.com formula syntax.
 
- * introduction
+ * quick start
+ * documentation
+ * dependencies
  * more information
 
-introduction
+quick start
+-----------
+
+fire up your browser and load `example/prettyprint.html`.
+type in some formula syntax and click 'pretty print!'.
+
+documentation
+-------------
+
+parses formula syntax and returns a JSON representation
+of the parse tree.  leaf nodes are just their text value,
+and inner nodes have an `expression` property which
+describes what type of node they are.  each type of inner
+node has various other properties to complete the description.
+
+ * `function`: function call
+   * `function`: text name
+   * `parameters`: array of nodes
+ * `reference`: field reference
+   * `name`: array of text reference parts
+ * `add`: arithmetic expressions
+ * `subtract`
+ * `multiply`
+ * `divide`
+ * `concat`: string expression
+ * `conjunction`: logical expressions
+ * `disjunction`
+   * `left`: left side of operand
+   * `right`: right side of operand
+ * `comparison`: comparison expression
+   * `comparator`: comparison operator
+   * `left`: left side of comparison
+   * `right`: right side of comparison
+ * `parens`: parenthesized expression
+   * `formula`: nested formula
+
+dependencies
 ------------
 
-_nothing yet_
+run
+ * none
+
+build
+ * jison
 
 more information
 ----------------

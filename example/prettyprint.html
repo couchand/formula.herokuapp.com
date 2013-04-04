@@ -43,7 +43,7 @@
                         return tree.name.join('.');
                     case 'parens':
                         return '( ' +
-                               stringify( tree.formula, indent+1, tab ) +
+                               stringify( tree.formula, indent, tab ) +
                                ' )';
                     case 'exponent':
                         infix = '^';
@@ -76,9 +76,9 @@
                         return tree;
                 }
 
-                return stringify( tree.left, indent+1, tab ) +
+                return stringify( tree.left, indent, tab ) +
                        ' ' + infix + ' ' +
-                       stringify( tree.right, indent+1, tab );
+                       stringify( tree.right, indent, tab );
             }
 
             function ppTextArea( id ) {

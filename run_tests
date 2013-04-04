@@ -20,3 +20,8 @@ assertEqual( 3, sum.parameters.length );
 assertEqual( '3', sum.parameters[0] );
 assertEqual( '1', sum.parameters[1] );
 assertEqual( '8', sum.parameters[2] );
+
+var inverse = p.parse('not(today())');
+assertEqual( 'not', inverse.function );
+assertEqual( 1, inverse.parameters.length );
+assertEqual( 'today', inverse.parameters[0].function );

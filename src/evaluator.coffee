@@ -135,7 +135,6 @@ class Reference
 
 evaluate = (formula, data) ->
   f = factory.build formula
-  console.log(f)
   f.evaluate data
 
 module.exports = evaluate

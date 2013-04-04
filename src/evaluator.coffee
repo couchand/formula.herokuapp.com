@@ -101,6 +101,12 @@ class Comparator
       when '>='
         left >= right
 
+class Parens
+  constructor: (node) ->
+    @formula = node.formula
+  evaluate: (data) ->
+    @formula.evaluate data
+
 class Decimal
   constructor: (node) ->
     @value = parseFloat( node.whole + '.' + node.part )

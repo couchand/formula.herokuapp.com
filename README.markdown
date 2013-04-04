@@ -1,7 +1,7 @@
-Force.com Formula Parser
+force.com formula farser
 ========================
 
-Parse Force.com formula syntax.
+parse force.com formula syntax.
 
  * quick start
  * documentation

@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script>var module = {};</script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../dst/parser.js"></script>
+        <script type="text/javascript" src="../dst/evaluator.js"></script>
+        <script>
+            var ev;
+            function findUnbound() {
+                var orig = $('#src').val();
+                var tree = parser.parse(orig);
+                $('#tree').val( JSON.stringify(tree, null, 2) );
+                ev = module.exports.build( tree );
+                var unbound = ev.unbound();
+                $('#refs').empty();
+                for ( ref in unbound ) {
+                    $('#refs').append( $('<li>').html( unbound[ref] + '<input name="' + unbound[ref] + '"/>' ) );
+                }
+            }
+            function evaluateFormula() {
+                var data = {};
+                $('#refs li input').each(function(i,e) {
+                    var $this = $(e);
+                    data[$this.attr('name')] = $this.val();
+                });
+                console.log( ev.evaluate( data ) );
+            }
+        </script>
+    </head>
+    <body>
+        <textarea rows="30" cols="100" id="src"></textarea>
+        <ul id="refs" style="display:inline-block"></ul>
+        <br>
+        <button onClick="findUnbound();">Find Unbound References</button>
+        <button onClick="evaluateFormula();">Evaluate</button>
+    </body>
+</html>

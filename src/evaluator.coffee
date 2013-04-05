@@ -45,6 +45,14 @@ class InfixExpression
   evaluate: (data) ->
     @operator @left.evaluate(data), @right.evaluate(data)
 
+  unbound: ->
+    refs = []
+    for ref in @left.unbound()
+      refs.push ref if -1 is refs.indexOf ref
+    for ref in @right.unbound()
+      refs.push ref if -1 is refs.indexOf ref
+    refs
+
 class Addition extends InfixExpression
   constructor: (node) ->
     super node, (left,  right) ->
@@ -110,38 +118,57 @@ class Parens
     @formula = factory.build node.formula
   evaluate: (data) ->
     @formula.evaluate data
+  unbound: ->
+    @formula.unbound()
 
 class StringLiteral
   constructor: (node) ->
     @value = node.string
   evaluate: (data) ->
     @value
+  unbound: ->
+    []
 
 class DecimalLiteral
   constructor: (node) ->
     @value = parseFloat( node.whole + '.' + node.part )
   evaluate: (data) ->
     @value
+  unbound: ->
+    []
 
 class IntegerLiteral
   constructor: (node) ->
     @value = parseInt node.value
   evaluate: (data) ->
     @value
+  unbound: ->
+    []
 
 class Reference
   constructor: (node) ->
     @name = node.name.join '.'
   evaluate: (data) ->
     data[@name]
+  unbound: ->
+    [@name]
 
 class FunctionCall
   constructor: (node) ->
     @params = (factory.build param for param in node.parameters)
-    @func = funcs[node.function.toLowerCase()]
+    @name = node.function.toLowerCase()
+    @func = funcs[@name]
   evaluate: (data) ->
     vals = (param.evaluate data for param in @params)
     @func vals
+  unbound: ->
+    refs = []
+    for param in @params
+      for ref in param.unbound()
+        refs.push ref if -1 is refs.indexOf ref
+    func = @name + '()'
+    refs.push func if not @func? and -1 is refs.indexOf func
+    refs
 
 funcs = {
   'and': (p) -> p.reduce (a, b) -> a and b
@@ -194,4 +221,10 @@ evaluate = (formula, data) ->
   f = factory.build formula
   f.evaluate data
 
-module.exports = evaluate
+build = (formula) ->
+  factory.build formula
+
+module.exports = {
+  evaluate: evaluate
+  build: build
+}

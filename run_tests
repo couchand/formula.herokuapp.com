@@ -18,6 +18,10 @@ var str = p.parse('"foobar"');
 assertEqual( 'string', str.expression );
 assertEqual( 'foobar', str.string );
 
+var sstr = p.parse("'foobar'");
+assertEqual( 'string', sstr.expression );
+assertEqual( 'foobar', sstr.string );
+
 var today = p.parse(' today  (  ) ');
 assertEqual( 'today', today.function );
 assertEqual( 0, today.parameters.length );

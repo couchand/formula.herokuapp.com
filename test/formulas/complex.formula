@@ -1,0 +1,8 @@
+if(
+    and(
+        not( foo ),
+        1
+    ),
+    "foo" & bar,
+    bar & "foo"
+)

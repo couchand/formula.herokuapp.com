@@ -20,9 +20,12 @@ main = (argv) ->
     return
   if fs.existsSync argv[2]
     formula = parser.parse fs.readFileSync(argv[1]).toString()
-    csv().from(fs.readFileSync(argv[2]).toString(), columns: true).on 'record', (data) ->
-      console.log data
-      console.log evaluator.evaluate formula, data
+    csv().from(fs.readFileSync(argv[2]).toString(), columns: true).transform((data) ->
+      data.actual = evaluator.evaluate formula, data
+      data
+    ).on 'record', (data, index) ->
+      message = "Row #{index+1}:  expected #{data.actual} to equal #{data.expected}.  #{data.message}."
+      console.log message if data.actual isnt data.expected
   else
     console.error "Data file #{argv[2]} not found"
 

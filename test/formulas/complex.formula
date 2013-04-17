@@ -1,7 +1,7 @@
 if(
     and(
         not( foo ),
-        1
+        baz
     ),
     "foo" & bar,
     bar & "foo"

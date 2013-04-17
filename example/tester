@@ -1,0 +1,18 @@
+#!/usr/local/bin/coffee
+# test formula against csv
+
+fs = require 'fs'
+csv = require 'csv'
+parser = require '../dst/parser.js'
+evaluator = require '../src/evaluator.coffee'
+
+main = (argv) ->
+  if !argv[1]? or argv[3]?
+    console.log "Usage: #{argv[0]} FORMULA_FILE CSV_FILE"
+    return
+  if !argv[2]?
+    console.log "required fields"
+    return
+  console.log "run tests"
+
+main process.argv.slice 1

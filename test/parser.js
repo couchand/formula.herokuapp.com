@@ -1,11 +1,13 @@
-#!/usr/local/bin/node
-var p = require('./dst/parser');
+// parser tests
+
+var p = require('../dst/parser');
+var assert = require('assert');
 
 function assertEqual( a, b ) {
-    if ( a != b ) {
-        throw "Expected " + b + " to equal " + a;
-    }
+    assert.equal( a, b );
 }
+
+it('should parse various things', function() {
 
 assertEqual( '5', p.parse('   5   ') );
 
@@ -68,3 +70,5 @@ var nest = p.parse('2+today()');
 assertEqual( 'add', nest.expression );
 assertEqual( '2', nest.left );
 assertEqual( 'today', nest.right.function );
+
+});

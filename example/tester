@@ -8,13 +8,20 @@ evaluator = require '../src/evaluator.coffee'
 
 main = (argv) ->
   if !argv[1]? or argv[3]?
-    console.log "Usage: #{argv[0]} FORMULA_FILE CSV_FILE"
+    console.log "Usage: #{argv[0]} FORMULA_FILE [ CSV_FILE ]"
+    console.log "       If you do not provide a CSV file, a stub will be created"
+    console.log "         by analyzing the formula."
+    console.log "       If you provide a CSV file in the right format, the tests"
+    console.log "         contained will be run against the formula."
     return
   if !argv[2]?
     if fs.existsSync argv[1]
       formula = parser.parse fs.readFileSync(argv[1]).toString()
       tree = evaluator.build formula
-      console.log tree.unbound()
+      lets = tree.unbound()
+      lets.push 'expected'
+      lets.push 'message'
+      console.log lets.join ','
     else
       console.error "Formula file #{argv[1]} not found"
     return

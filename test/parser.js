@@ -68,21 +68,27 @@ describe('parser', function() {
         assert.equal( 'today', inverse.parameters[0].function );
     });
 
-    it('should parse various things', function() {
+    it('parses references', function() {
         var field = p.parse('   relationship__r  . field__c ');
         assert.equal( 'reference', field.expression );
         assert.equal( 'relationship__r', field.name[0] );
         assert.equal( 'field__c', field.name[1] );
+    });
 
+    it('parses global variables', function() {
         assert.equal( '$User', p.parse('$User.Name').name[0] );
+    });
 
+    it('parses math syntax', function() {
         var expr = p.parse('2+\n7*5');
         assert.equal( 'add', expr.expression );
         assert.equal( '2', expr.left );
         assert.equal( 'multiply', expr.right.expression );
         assert.equal( '7', expr.right.left );
         assert.equal( '5', expr.right.right );
+    });
 
+    it('parses order of operations correctly', function() {
         var order = p.parse('1<2||3&&4+5*6^7');
         assert.equal( 'comparison', order.expression );
         assert.equal( 'disjunction', order.right.expression );
@@ -90,11 +96,12 @@ describe('parser', function() {
         assert.equal( 'add', order.right.right.right.expression );
         assert.equal( 'multiply', order.right.right.right.right.expression );
         assert.equal( 'exponent', order.right.right.right.right.right.expression );
+    });
 
+    it('parses functions in math', function() {
         var nest = p.parse('2+today()');
         assert.equal( 'add', nest.expression );
         assert.equal( '2', nest.left );
         assert.equal( 'today', nest.right.function );
-
     });
 });

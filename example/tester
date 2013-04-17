@@ -11,8 +11,19 @@ main = (argv) ->
     console.log "Usage: #{argv[0]} FORMULA_FILE CSV_FILE"
     return
   if !argv[2]?
-    console.log "required fields"
+    if fs.existsSync argv[1]
+      formula = parser.parse fs.readFileSync(argv[1]).toString()
+      tree = evaluator.build formula
+      console.log tree.unbound()
+    else
+      console.error "Formula file #{argv[1]} not found"
     return
-  console.log "run tests"
+  if fs.existsSync argv[2]
+    formula = parser.parse fs.readFileSync(argv[1]).toString()
+    csv().from(fs.readFileSync(argv[2]).toString(), columns: true).on 'record', (data) ->
+      console.log data
+      console.log evaluator.evaluate formula, data
+  else
+    console.error "Data file #{argv[2]} not found"
 
 main process.argv.slice 1

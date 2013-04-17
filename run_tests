@@ -46,11 +46,19 @@ assertEqual( 'field__c', field.name[1] );
 assertEqual( '$User', p.parse('$User.Name').name[0] );
 
 var expr = p.parse('2+\n7*5');
-assertEqual( 'add', expr.left.expression );
-assertEqual( '2', expr.left.left );
-assertEqual( '7', expr.left.right );
-assertEqual( 'multiply', expr.expression );
-assertEqual( '5', expr.right );
+assertEqual( 'add', expr.expression );
+assertEqual( '2', expr.left );
+assertEqual( 'multiply', expr.right.expression );
+assertEqual( '7', expr.right.left );
+assertEqual( '5', expr.right.right );
+
+var order = p.parse('1<2||3&&4+5*6^7');
+assertEqual( 'comparison', order.expression );
+assertEqual( 'disjunction', order.right.expression );
+assertEqual( 'conjunction', order.right.right.expression );
+assertEqual( 'add', order.right.right.right.expression );
+assertEqual( 'multiply', order.right.right.right.right.expression );
+assertEqual( 'exponent', order.right.right.right.right.right.expression );
 
 var nest = p.parse('2+today()');
 assertEqual( 'add', nest.expression );

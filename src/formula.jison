@@ -61,69 +61,69 @@ parameter
   ;
 
 expr
-  : exp_expr
+  : comp_expr
   | expr0
   ;
 
 expr0
-  : mult_expr
+  : or_expr
   | expr1
   ;
 
 expr1
-  : add_expr
+  : and_expr
   | expr2
   ;
 
 expr2
-  : and_expr
+  : add_expr
   | expr3
   ;
 
 expr3
-  : or_expr
+  : mult_expr
   | expr4
   ;
 
 expr4
-  : comp_expr
+  : exp_expr
   | primary
   ;
 
 exp_expr
-  : expr '^' expr0
-    { $$ = { expression: 'exponent', left: $expr, right: $expr0 }; }
+  : expr4 '^' primary
+    { $$ = { expression: 'exponent', left: $expr4, right: $primary }; }
   ;
 
 mult_expr
-  : expr0 '*' expr1
-    { $$ = { expression: 'multiply', left: $expr0, right: $expr1 }; }
-  | expr0 '/' expr1
-    { $$ = { expression: 'divide', left: $expr0, right: $expr1 }; }
+  : expr3 '*' expr4
+    { $$ = { expression: 'multiply', left: $expr3, right: $expr4 }; }
+  | expr3 '/' expr4
+    { $$ = { expression: 'divide', left: $expr3, right: $expr4 }; }
   ;
 
 add_expr
-  : expr1 '+' expr2
-    { $$ = { expression: 'add', left: $expr1, right: $expr2 }; }
-  | expr1 '-' expr2
-    { $$ = { expression: 'subtract', left: $expr1, right: $expr2 }; }
-  | expr1 '&' expr2
-    { $$ = { expression: 'concat', left: $expr1, right: $expr2 }; }
+  : expr2 '+' expr3
+    { $$ = { expression: 'add', left: $expr2, right: $expr3 }; }
+  | expr2 '-' expr3
+    { $$ = { expression: 'subtract', left: $expr2, right: $expr3 }; }
+  | expr2 '&' expr3
+    { $$ = { expression: 'concat', left: $expr2, right: $expr3 }; }
   ;
 
 and_expr
-  : expr2 '&&' expr3
-    { $$ = { expression: 'conjunction', left: $expr2, right: $expr3 }; }
+  : expr1 '&&' expr2
+    { $$ = { expression: 'conjunction', left: $expr1, right: $expr2 }; }
   ;
 
 or_expr
-  : expr3 '||' expr4
-    { $$ = { expression: 'disjunction', left: $expr3, right: $expr4 }; }
+  : expr0 '||' expr1
+    { $$ = { expression: 'disjunction', left: $expr0, right: $expr1 }; }
   ;
 
 comp_expr
-  : expr4 comparator primary
-    { $$ = { expression: 'comparison', comparator: $comparator, left: $expr4, right: $primary }; }
+  : expr comparator expr0
+    { $$ = { expression: 'comparison', comparator: $comparator, left: $expr, right: $expr0 }; }
   ;
 
 comparator

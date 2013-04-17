@@ -4,23 +4,34 @@ var p = require('../dst/parser');
 var assert = require('assert');
 
 describe('parser', function() {
-    it('should parse various things', function() {
+    it('parses numbers', function() {
+        assert.equal( '5', p.parse('5') );
+    });
 
+    it('ignores whitespace', function() {
         assert.equal( '5', p.parse('   5   ') );
+    });
 
+    it('parses decimals', function() {
         var decimal = p.parse('3.2');
         assert.equal( 'decimal', decimal.expression );
         assert.equal( '3', decimal.whole );
         assert.equal( '2', decimal.part );
+    });
 
+    it('parses double-quote strings', function() {
         var str = p.parse('"foobar"');
         assert.equal( 'string', str.expression );
         assert.equal( 'foobar', str.string );
+    });
 
+    it('parses single-quote strings', function() {
         var sstr = p.parse("'foobar'");
         assert.equal( 'string', sstr.expression );
         assert.equal( 'foobar', sstr.string );
+    });
 
+    it('should parse various things', function() {
         var today = p.parse(' today  (  ) ');
         assert.equal( 'today', today.function );
         assert.equal( 0, today.parameters.length );

@@ -45,6 +45,8 @@ case 42: this.$ = [$$[$0]];
 break;
 case 43: this.$ = $$[$0-2]; this.$.push( $$[$0] ); 
 break;
+case 45: this.$ = { expression: 'integer', value: $$[$0] }; 
+break;
 case 49: this.$ = { expression: 'decimal', whole: $$[$0-2], part: $$[$0] }; 
 break;
 case 50: this.$ = { expression: 'string', string: $$[$0].substring(1,$$[$0].length-1) }; 

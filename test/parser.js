@@ -31,27 +31,44 @@ describe('parser', function() {
         assert.equal( 'foobar', sstr.string );
     });
 
-    it('should parse various things', function() {
+    it('parses functions', function() {
         var today = p.parse(' today  (  ) ');
         assert.equal( 'today', today.function );
         assert.equal( 0, today.parameters.length );
+    });
 
+    it('parses parens', function() {
         assert.equal( '5', p.parse(' (  5  )  ').formula );
+    });
 
+    it('parses function parameters', function() {
         var sum = p.parse('   sum (  3 ,  1 ,  8  ) ');
         assert.equal( 'function', sum.expression );
         assert.equal( 3, sum.parameters.length );
         assert.equal( '3', sum.parameters[0] );
         assert.equal( '1', sum.parameters[1] );
         assert.equal( '8', sum.parameters[2] );
+    });
 
+    it('parses nested functions', function() {
+        var inverse = p.parse('not(today())');
+        assert.equal( 'function', inverse.expression );
+        assert.equal( 'not', inverse.function );
+        assert.equal( 1, inverse.parameters.length );
+        assert.equal( 'function', inverse.parameters[0].expression );
+        assert.equal( 'today', inverse.parameters[0].function );
+    });
+
+    it('ignores whitespace in functions', function() {
         var inverse = p.parse('   not  ( today \n\n(   )\n)\n');
         assert.equal( 'function', inverse.expression );
         assert.equal( 'not', inverse.function );
         assert.equal( 1, inverse.parameters.length );
         assert.equal( 'function', inverse.parameters[0].expression );
         assert.equal( 'today', inverse.parameters[0].function );
+    });
 
+    it('should parse various things', function() {
         var field = p.parse('   relationship__r  . field__c ');
         assert.equal( 'reference', field.expression );
         assert.equal( 'relationship__r', field.name[0] );

@@ -1,0 +1,9 @@
+message,foo,bar,baz,expected
+"both needed",,"baz",,"WRONGbazfoo"
+"baz needed",1,"baz",,"WRONGbazfoo"
+"both needed",,"bar",,"WRONGbarfoo"
+"baz needed",1,"bar",,"WRONGbarfoo"
+"bar is end",,"baz",1,"WRONGfoobaz"
+"both needed",1,"baz",1,"WRONGbazfoo"
+"foobar",,"bar",1,"WRONGfoobar"
+"both needed",1,"bar",1,"WRONGbarfoo"

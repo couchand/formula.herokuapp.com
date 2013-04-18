@@ -1,0 +1,3 @@
+message,a,b,c,expected
+"blank value should return else","not_blank",1,2,2
+"true value should return if",,1,2,1

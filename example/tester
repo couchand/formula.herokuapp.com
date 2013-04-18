@@ -2,9 +2,7 @@
 # test formula against csv
 
 fs = require 'fs'
-csv = require 'csv'
-parser = require '../dst/parser.js'
-evaluator = require '../src/evaluator.coffee'
+tester = require '../src/tester'
 
 main = (argv) ->
   if !argv[1]? or argv[3]?
@@ -16,23 +14,17 @@ main = (argv) ->
     return
   if !argv[2]?
     if fs.existsSync argv[1]
-      formula = parser.parse fs.readFileSync(argv[1]).toString()
-      tree = evaluator.build formula
-      lets = tree.unbound()
-      lets.push 'expected'
-      lets.push 'message'
-      console.log lets.join ','
+      formula = fs.readFileSync(argv[1]).toString()
+      console.log tester.getTemplate formula
     else
       console.error "Formula file #{argv[1]} not found"
     return
   if fs.existsSync argv[2]
-    formula = parser.parse fs.readFileSync(argv[1]).toString()
-    csv().from(fs.readFileSync(argv[2]).toString(), columns: true).transform((data) ->
-      data.actual = evaluator.evaluate formula, data
-      data
-    ).on 'record', (data, index) ->
-      message = "Row #{index+1}:  expected #{data.actual} to equal #{data.expected}.  #{data.message}."
-      console.log message if data.actual isnt data.expected
+    formula = fs.readFileSync(argv[1]).toString()
+    csv = fs.readFileSync(argv[2]).toString();
+    tester.test formula, csv, (failures) ->
+      for failure in failures
+        console.log failure
   else
     console.error "Data file #{argv[2]} not found"
 

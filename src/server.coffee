@@ -15,8 +15,8 @@ app.get '/', (req, res) ->
   if not data?
     res.send tester.getTemplate formula
   else
-    tester.test formula, data, (failures) ->
-      res.send JSON.stringify failures, null, 2
+    tester.test formula, data, (results) ->
+      res.send JSON.stringify results
 
 port = process.env.PORT or 5000
 app.listen port, ->

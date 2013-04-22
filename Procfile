@@ -1,1 +1,1 @@
-web: node dst/server.js
+web: coffee src/server.coffee

@@ -1,8 +1,8 @@
 # test formula against csv
 
 csv = require 'csv'
-parser = require '../dst/parser.js'
-evaluator = require '../src/evaluator.coffee'
+parser = require '../dst/parser'
+evaluator = require './evaluator'
 
 getTemplate = (formula_src) ->
   formula = parser.parse formula_src

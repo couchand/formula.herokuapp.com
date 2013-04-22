@@ -22,7 +22,8 @@ main = (argv) ->
   if fs.existsSync argv[2]
     formula = fs.readFileSync(argv[1]).toString()
     csv = fs.readFileSync(argv[2]).toString();
-    tester.test formula, csv, (failures) ->
+    tester.test formula, csv, (results) ->
+      failures = tester.getFailures results
       for failure in failures
         console.log failure
   else

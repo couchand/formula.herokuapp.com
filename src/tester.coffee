@@ -26,7 +26,7 @@ test = (formula_src, csv_src, report) ->
 
 getFailures = (results) ->
   failures = []
-  for data in results
+  for data, index in results
     message = "Row #{index+1}:  expected #{data.actual} to equal #{data.expected}.  #{data.message}."
     failures.push(message) if data.actual isnt data.expected
   failures

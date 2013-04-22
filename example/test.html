@@ -1,5 +1,10 @@
 <html>
     <head>
+        <style>
+            .failure {
+                background-color: red;
+            }
+        </style>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>
             function getTemplate() {
@@ -12,7 +17,23 @@
                 var formula = $('#src').val();
                 var data = $('#data').val();
                 $.get('test', { formula: formula, data: data }, function( results ) {
-                    console.log( results );
+                    var resultTable = $('#results').empty();
+                    var row = $('<tr>');
+                    $.each( results[0], function(property, value) {
+                        row.append( $('<th>').text( property ) );
+                    });
+                    row.appendTo( resultTable );
+
+                    $.each( results, function (index, result) {
+                        var row = $('<tr>');
+                        $.each( result, function(property, value) {
+                            row.append( $('<td>').text( value ) );
+                        });
+                        if ( result.actual !== result.expected ) {
+                            row.addClass('failure');
+                        }
+                        row.appendTo( resultTable );
+                    });
                 });
             }
         </script>

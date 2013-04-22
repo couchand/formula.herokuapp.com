@@ -17,8 +17,6 @@ test = (formula_src, csv_src, report) ->
   results = []
   csv().from(csv_src, columns: true).transform((data) ->
     data.actual = evaluator.evaluate formula, data
-    data
-  ).on('record', (data, index) ->
     results.push data
   ).on('end', ->
     report results

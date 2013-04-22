@@ -11,6 +11,10 @@
   app.use(express.logger());
 
   app.get('/', function(req, res) {
+    return res.sendfile('./example/test.html');
+  });
+
+  app.get('/test', function(req, res) {
     var data, formula;
     formula = req.query.formula;
     data = req.query.data;
@@ -22,7 +26,7 @@
       return res.send(tester.getTemplate(formula));
     } else {
       return tester.test(formula, data, function(results) {
-        return res.send(JSON.stringify(results));
+        return res.json(results);
       });
     }
   });

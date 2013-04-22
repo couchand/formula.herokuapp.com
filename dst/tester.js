@@ -35,10 +35,10 @@
   };
 
   getFailures = function(results) {
-    var data, failures, message, _i, _len;
+    var data, failures, index, message, _i, _len;
     failures = [];
-    for (_i = 0, _len = results.length; _i < _len; _i++) {
-      data = results[_i];
+    for (index = _i = 0, _len = results.length; _i < _len; index = ++_i) {
+      data = results[index];
       message = "Row " + (index + 1) + ":  expected " + data.actual + " to equal " + data.expected + ".  " + data.message + ".";
       if (data.actual !== data.expected) {
         failures.push(message);

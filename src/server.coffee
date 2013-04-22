@@ -7,6 +7,9 @@ app = express()
 app.use express.logger()
 
 app.get '/', (req, res) ->
+  res.sendfile './example/test.html'
+
+app.get '/test', (req, res) ->
   formula = req.query.formula
   data = req.query.data
   unless formula?

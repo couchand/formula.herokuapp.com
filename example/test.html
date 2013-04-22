@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+            function getTemplate() {
+                var formula = $('#src').val();
+                $.get('test', { formula: formula }, function( template ) {
+                    $('#data').val( template );
+                });
+            }
+            function runTests() {
+                var formula = $('#src').val();
+                var data = $('#data').val();
+                $.get('test', { formula: formula, data: data }, function( results ) {
+                    console.log( results );
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <textarea rows="30" cols="100" id="src"></textarea>
+        <textarea rows="30" cols="50" id="data"></textarea>
+        <br>
+        <button onClick="getTemplate();">Get Template</button>
+        <button onClick="runTests();">Run Tests</button>
+        <table id="results"></table>
+    </body>
+</html>

@@ -1,6 +1,15 @@
 <html>
     <head>
         <style>
+            table {
+                border: thick solid black;
+                display: inline-block;
+            }
+            th, td {
+                border: thin solid gray;
+                padding: 5px 15px;
+                margin: 0;
+            }
             .failure {
                 background-color: red;
             }
@@ -20,18 +29,33 @@
                     var resultTable = $('#results').empty();
                     var row = $('<tr>');
                     $.each( results[0], function(property, value) {
-                        row.append( $('<th>').text( property ) );
+                        if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
+                            row.append( $('<th>').text( property ) );
+                        }
                     });
+                    row.append( $('<th>').text( 'expected' ) );
+                    row.append( $('<th>').text( 'actual' ) );
+                    row.append( $('<th>').text( 'message' ) );
                     row.appendTo( resultTable );
 
                     $.each( results, function (index, result) {
                         var row = $('<tr>');
                         $.each( result, function(property, value) {
-                            row.append( $('<td>').text( value ) );
+                            if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
+                                row.append( $('<td>').text( value ) );
+                            }
                         });
+
+                        row.append( $('<td>').text( result.expected ) );
+
+                        var actual = $('<td>').text( result.actual );
                         if ( result.actual !== result.expected ) {
-                            row.addClass('failure');
+                            actual.addClass('failure');
                         }
+                        row.append( actual );
+
+                        row.append( $('<td>').text( result.message ) );
+
                         row.appendTo( resultTable );
                     });
                 });
@@ -41,9 +65,9 @@
     <body>
         <textarea rows="30" cols="100" id="src"></textarea>
         <textarea rows="30" cols="50" id="data"></textarea>
+        <table id="results" cellspacing="0"></table>
         <br>
         <button onClick="getTemplate();">Get Template</button>
         <button onClick="runTests();">Run Tests</button>
-        <table id="results"></table>
     </body>
 </html>

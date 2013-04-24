@@ -3,15 +3,8 @@
         <script type="text/javascript" src="../dst/parser.js"></script>
         <script>
             function prettyPrint( text ) {
-                var tree, formatted;
-                try {
-                    tree = parser.parse( text );
-                    formatted = stringify( tree );
-                }
-                catch (ex) {
-                    console.log(ex);
-                    document.getElementById('console').value = '' + ex;
-                }
+                var tree = parser.parse( text );
+                var formatted = stringify( tree );
                 return formatted;
             }
 
@@ -92,9 +85,13 @@
 
             function ppTextArea( id ) {
                 var pretty, el = document.getElementById( id );
-                pretty = prettyPrint( el.value );
-                if ( pretty ) {
+
+                try {
+                    pretty = prettyPrint( el.value );
                     el.value = pretty;
+                }
+                catch (ex) {
+                    document.getElementById('console').value = '' + ex;
                 }
             }
         </script>

@@ -9,6 +9,12 @@ app.use express.logger()
 app.get '/', (req, res) ->
   res.sendfile './example/test.html'
 
+app.get '/prettyprint.html', (req, res) ->
+  res.sendfile './example/prettyprint.html'
+
+app.get '/evaluate.html', (req, res) ->
+  res.sendfile './example/evaluate.html'
+
 app.get '/test', (req, res) ->
   formula = req.query.formula
   data = req.query.data

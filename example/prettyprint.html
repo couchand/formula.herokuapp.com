@@ -4,8 +4,6 @@
         <script>
             function prettyPrint( text ) {
                 var tree = parser.parse( text );
-                document.getElementById('tree').value =
-                    JSON.stringify( tree, null, 2 );
                 var formatted = stringify( tree );
                 return formatted;
             }
@@ -93,7 +91,7 @@
     </head>
     <body>
         <textarea rows="30" cols="100" id="src"></textarea>
-        <textarea rows="30" cols="60" id="tree"></textarea>
+        <textarea rows="30" cols="60" id="console"></textarea>
         <br>
         <button onClick="ppTextArea('src');">Pretty Print!</button>
     </body>

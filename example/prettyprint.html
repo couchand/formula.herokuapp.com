@@ -86,6 +86,7 @@
             function ppTextArea( id ) {
                 var pretty, el = document.getElementById( id );
 
+                document.getElementById('console').value = '';
                 try {
                     pretty = prettyPrint( el.value );
                     el.value = pretty;

@@ -3,8 +3,15 @@
         <script type="text/javascript" src="../dst/parser.js"></script>
         <script>
             function prettyPrint( text ) {
-                var tree = parser.parse( text );
-                var formatted = stringify( tree );
+                var tree, formatted;
+                try {
+                    tree = parser.parse( text );
+                    formatted = stringify( tree );
+                }
+                catch (ex) {
+                    console.log(ex);
+                    document.getElementById('console').value = '' + ex;
+                }
                 return formatted;
             }
 

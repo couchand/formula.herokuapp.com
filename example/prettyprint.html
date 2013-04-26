@@ -95,9 +95,26 @@
                     document.getElementById('console').value = '' + ex;
                 }
             }
+
+            function init() {
+                var message = 'Type your formula here...',
+                    src = document.getElementById('src');
+
+                src.value = message;
+                src.addEventListener( 'focus', function() {
+                    if ( src.value == message ) {
+                        src.value = '';
+                    }
+                }, false );
+                src.addEventListener( 'blur', function() {
+                    if ( src.value == '' ) {
+                        src.value = message;
+                    }
+                }, false );
+            }
         </script>
     </head>
-    <body>
+    <body onLoad="init();">
         <textarea rows="30" cols="100" id="src"></textarea>
         <textarea rows="30" cols="60" id="console"></textarea>
         <br>

@@ -43,6 +43,13 @@ class Unbound
     node.formula.visit @
   visitReference: (node) ->
     [node.name]
+  visitComparison: (node) ->
+    refs = []
+    for ref in node.left.visit @
+      refs.push ref if -1 is refs.indexOf ref
+    for ref in node.right.visit @
+      refs.push ref if -1 is refs.indexOf ref
+    refs
 
 evaluate = (f, data) ->
   f.visit new Evaluator data

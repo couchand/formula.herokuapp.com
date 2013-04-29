@@ -70,3 +70,21 @@ describe 'evaluator', ->
         }
         assert.equal f.params.length, 1
         assert.equal f.params[0].value, 5
+
+      it 'builds additions', ->
+        f = e.build {
+          expression: 'add'
+          left:
+            {
+              expression: 'integer'
+              value: 5
+            }
+          right:
+            {
+              expression: 'integer'
+              value: 3
+            }
+        }
+        assert.equal f.left.value, 5
+        assert.equal f.right.value, 3
+        assert.equal f.evaluate({}), 8

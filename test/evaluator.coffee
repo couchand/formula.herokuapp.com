@@ -94,6 +94,11 @@ describe 'Evaluator', ->
         fivePlusThree = new n.Addition new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
         assert.equal e.evaluate(fivePlusThree), 8
 
+    describe 'visitSubtraction', ->
+      it 'evaluates', ->
+        fiveMinusThree = new n.Subtraction new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
+        assert.equal e.evaluate(fiveMinusThree), 2
+
 describe 'Comparator', ->
   describe '#', ->
     describe 'visitIntegerLiteral', ->
@@ -182,3 +187,8 @@ describe 'Comparator', ->
       it 'unbounds', ->
         fivePlusThree = new n.Addition new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
         assert.equal e.unbound(fivePlusThree).length, 0
+
+    describe 'visitSubtraction', ->
+      it 'unbounds', ->
+        fiveMinusThree = new n.Subtraction new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
+        assert.equal e.unbound(fiveMinusThree).length, 0

@@ -26,6 +26,8 @@ class Evaluator extends FormulaVisitor
     @visitInfixExpression node, getComparator node.comparator
   visitAddition: (node) ->
     @visitInfixExpression node, (a, b) -> a + b
+  visitSubtraction: (node) ->
+    @visitInfixExpression node, (a, b) -> a - b
 
 getComparator = (comparator) ->
   switch comparator
@@ -59,6 +61,8 @@ class Unbound extends FormulaVisitor
   visitComparison: (node) ->
     @visitInfixExpression node
   visitAddition: (node) ->
+    @visitInfixExpression node
+  visitSubtraction: (node) ->
     @visitInfixExpression node
 
 evaluate = (f, data) ->

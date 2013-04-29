@@ -21,19 +21,23 @@ class Evaluator extends FormulaVisitor
   visitComparison: (node) ->
     left = node.left.visit @
     right = node.right.visit @
-    switch node.comparator
-      when '=', '=='
-        left is right
-      when '!=', '<>'
-        left isnt right
-      when '<'
-        left < right
-      when '>'
-        left > right
-      when '<='
-        left <= right
-      when '>='
-        left >= right
+    comparator = getComparator node.comparator
+    comparator left, right
+
+getComparator = (comparator) ->
+  switch comparator
+    when '=', '=='
+      (left, right) -> left is right
+    when '!=', '<>'
+      (left, right) -> left isnt right
+    when '<'
+      (left, right) -> left < right
+    when '>'
+      (left, right) -> left > right
+    when '<='
+      (left, right) -> left <= right
+    when '>='
+      (left, right) -> left >= right
 
 class Unbound extends FormulaVisitor
   constructor: ->

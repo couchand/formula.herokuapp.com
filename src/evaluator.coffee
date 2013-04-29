@@ -2,13 +2,15 @@
 
 class Evaluator
   constructor: (@data) ->
+  visitLiteral: (node) ->
+    node.value
 
   visitIntegerLiteral: (node) ->
-    node.value
+    @visitLiteral node
   visitDecimalLiteral: (node) ->
-    node.value
+    @visitLiteral node
   visitStringLiteral: (node) ->
-    node.value
+    @visitLiteral node
   visitParens: (node) ->
     node.formula.visit @
   visitReference: (node) ->
@@ -32,13 +34,15 @@ class Evaluator
 
 class Unbound
   constructor: ->
+  visitLiteral: ->
+    []
 
   visitIntegerLiteral: (node) ->
-    []
+    @visitLiteral node
   visitDecimalLiteral: (node) ->
-    []
+    @visitLiteral node
   visitStringLiteral: (node) ->
-    []
+    @visitLiteral node
   visitParens: (node) ->
     node.formula.visit @
   visitReference: (node) ->

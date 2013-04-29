@@ -15,8 +15,9 @@ class InfixExpression
 
 class Addition extends InfixExpression
   constructor: (a, b) ->
-    super a, b, (left,  right) ->
-      left + right
+    super a, b
+  visit: (visitor) ->
+    visitor.visitAddition @
 
 class Subtraction extends InfixExpression
   constructor: (a, b) ->

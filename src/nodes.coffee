@@ -75,33 +75,25 @@ class Comparator
 
 class Parens
   constructor: (@formula) ->
-  evaluate: (data) ->
-    @formula.evaluate data
-  unbound: ->
-    @formula.unbound()
+  visit: (visitor) ->
+    visitor.visitParens @
 
 class StringLiteral
   constructor: (@value) ->
-  evaluate: (data) ->
-    @value
-  unbound: ->
-    []
+  visit: (visitor) ->
+    visitor.visitStringLiteral @
 
 class DecimalLiteral
   constructor: (whole, part) ->
     @value = parseFloat( whole + '.' + part )
-  evaluate: (data) ->
-    @value
-  unbound: ->
-    []
+  visit: (visitor) ->
+    visitor.visitDecimalLiteral @
 
 class IntegerLiteral
   constructor: (val) ->
     @value = parseInt val
-  evaluate: (data) ->
-    @value
-  unbound: ->
-    []
+  visit: (visitor) ->
+    visitor.visitIntegerLiteral @
 
 class Reference
   constructor: (names) ->

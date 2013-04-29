@@ -13,6 +13,22 @@ class Evaluator
     node.formula.visit @
   visitReference: (node) ->
     @data[node.name]
+  visitComparison: (node) ->
+    left = node.left.visit @
+    right = node.right.visit @
+    switch node.comparator
+      when '=', '=='
+        left is right
+      when '!=', '<>'
+        left isnt right
+      when '<'
+        left < right
+      when '>'
+        left > right
+      when '<='
+        left <= right
+      when '>='
+        left >= right
 
 class Unbound
   constructor: ->

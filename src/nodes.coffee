@@ -49,29 +49,10 @@ class Disjunction extends InfixExpression
       left or right
 
 class Comparison extends InfixExpression
-  constructor: (comparator, a, b) ->
+  constructor: (@comparator, a, b) ->
     super a, b
-    @comparator = new Comparator comparator
-
-  evaluate: (data) ->
-    @comparator.compare @left.evaluate(data), @right.evaluate(data)
-
-class Comparator
-  constructor: (@comparator) ->
-  compare: (left, right) ->
-    switch @comparator
-      when '=', '=='
-        left is right
-      when '!=', '<>'
-        left isnt right
-      when '<'
-        left < right
-      when '>'
-        left > right
-      when '<='
-        left <= right
-      when '>='
-        left >= right
+  visit: (visitor) ->
+    visitor.visitComparison @
 
 class Parens
   constructor: (@formula) ->

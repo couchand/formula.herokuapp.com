@@ -1,0 +1,5 @@
+a,b,c,expected,message
+6,7,8,false,"none are true"
+4,6,7,false,"first one is true"
+5,3,9,false,"second one is true"
+6,5,4,false,"third one is true"

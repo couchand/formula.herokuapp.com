@@ -47,3 +47,26 @@ describe 'evaluator', ->
           }
         }
         assert.equal f.formula.value, 5
+
+      it 'builds function calls', ->
+        f = e.build {
+          expression: 'function'
+          function: 'today'
+          parameters: []
+        }
+        assert.equal f.name, 'today'
+        assert.equal f.params.length, 0
+
+      it 'builds function params', ->
+        f = e.build {
+          expression: 'function'
+          function: 'foo'
+          parameters: [
+            {
+              expression: 'integer'
+              value: 5
+            }
+          ]
+        }
+        assert.equal f.params.length, 1
+        assert.equal f.params[0].value, 5

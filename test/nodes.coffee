@@ -1,7 +1,6 @@
 # evaluator tests
 
 n = require '../src/nodes'
-e = require '../src/evaluator'
 assert = require 'assert'
 
 describe 'evaluator', ->

@@ -45,9 +45,9 @@ formula
 
 function_call
   : identifier '(' ')'
-    { $$ = { expression: 'function', function: $identifier, parameters: [] }; }
+    { $$ = new node.FunctionCall( $identifier, [] ); }
   | identifier '(' parameters ')'
-    { $$ = { expression: 'function', function: $identifier, parameters: $parameters }; }
+    { $$ = new node.FunctionCall( $identifier, $parameters ); }
   ;
 
 parameters
@@ -98,33 +98,33 @@ exp_expr
 
 mult_expr
   : expr3 '*' expr4
-    { $$ = { expression: 'multiply', left: $expr3, right: $expr4 }; }
+    { $$ = new node.Multiplication( $expr3, $expr4 ); }
   | expr3 '/' expr4
-    { $$ = { expression: 'divide', left: $expr3, right: $expr4 }; }
+    { $$ = new node.Division( $expr3, $expr4 ); }
   ;
 
 add_expr
   : expr2 '+' expr3
-    { $$ = { expression: 'add', left: $expr2, right: $expr3 }; }
+    { $$ = new node.Addition( $expr2, $expr3 ); }
   | expr2 '-' expr3
-    { $$ = { expression: 'subtract', left: $expr2, right: $expr3 }; }
+    { $$ = new node.Subtraction( $expr2, $expr3 ); }
   | expr2 '&' expr3
-    { $$ = { expression: 'concat', left: $expr2, right: $expr3 }; }
+    { $$ = new node.Concatenation( $expr2, $expr3 ); }
   ;
 
 and_expr
   : expr1 '&&' expr2
-    { $$ = { expression: 'conjunction', left: $expr1, right: $expr2 }; }
+    { $$ = new node.Conjunction( $expr1, $expr2 ); }
   ;
 
 or_expr
   : expr0 '||' expr1
-    { $$ = { expression: 'disjunction', left: $expr0, right: $expr1 }; }
+    { $$ = new node.Disjunction( $expr0, $expr1 ); }
   ;
 
 comp_expr
   : expr comparator expr0
-    { $$ = { expression: 'comparison', comparator: $comparator, left: $expr, right: $expr0 }; }
+    { $$ = new node.Comparison( $comparator, $expr, $expr0 ); }
   ;
 
 comparator
@@ -143,12 +143,12 @@ primary
   | function_call
   | reference
   | '(' formula ')'
-    { $$ = { expression: 'parens', formula: $formula }; }
+    { $$ = new node.Parens( $formula ); }
   ;
 
 reference
   : identifiers
-    { $$ = { expression: 'reference', name: $identifiers }; }
+    { $$ = new node.Reference( $identifiers ); }
   ;
 
 identifiers
@@ -164,7 +164,7 @@ identifier
 
 literal
   : int_literal
-    { $$ = { expression: 'integer', value: $int_literal }; }
+    { $$ = new node.IntegerLiteral( $int_literal ); }
   | dec_literal
   | quoted_string
   ;
@@ -175,12 +175,12 @@ int_literal
 
 dec_literal
   : int_literal '.' int_literal
-    { $$ = { expression: 'decimal', whole: $int_literal1, part: $int_literal2 }; }
+    { $$ = new node.DecimalLiteral( $int_literal1, $int_literal2 ); }
   ;
 
 quoted_string
   : str_literal
-    { $$ = { expression: 'string', string: $str_literal.substring(1,$str_literal.length-1) }; }
+    { $$ = new node.StringLiteral( $str_literal.substring(1,$str_literal.length-1) ); }
   ;
 
 str_literal

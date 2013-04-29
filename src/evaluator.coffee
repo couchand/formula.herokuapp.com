@@ -43,7 +43,6 @@ getComparator = (comparator) ->
       (left, right) -> left >= right
 
 class Unbound extends FormulaVisitor
-  constructor: ->
   visitLiteral: ->
     []
   visitInfixExpression: (node) ->

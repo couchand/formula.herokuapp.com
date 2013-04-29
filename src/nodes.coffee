@@ -14,8 +14,6 @@ class InfixExpression
     refs
 
 class Addition extends InfixExpression
-  constructor: (a, b) ->
-    super a, b
   visit: (visitor) ->
     visitor.visitAddition @
 

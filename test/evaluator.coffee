@@ -27,3 +27,13 @@ describe 'evaluator', ->
           string: 'foobar'
         }
         assert.equal f.value, 'foobar'
+
+      it 'builds references', ->
+        f = e.build {
+          expression: 'reference'
+          name: [
+            'relationship__r'
+            'field__c'
+          ]
+        }
+        assert.equal f.name, 'relationship__r.field__c'

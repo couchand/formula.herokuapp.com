@@ -12,9 +12,6 @@ app.get '/', (req, res) ->
 app.get '/prettyprint.html', (req, res) ->
   res.sendfile './example/prettyprint.html'
 
-app.get '/evaluate.html', (req, res) ->
-  res.sendfile './example/evaluate.html'
-
 app.get '/dst/parser.js', (req, res) ->
   res.sendfile './dst/parser.js'
 

@@ -21,7 +21,7 @@ class Unbound
     []
   visitStringLiteral: (node) ->
     []
-  visitParens: ->
+  visitParens: (node) ->
     node.formula.visit @
 
 evaluate = (f, data) ->

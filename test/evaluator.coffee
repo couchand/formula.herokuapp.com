@@ -99,6 +99,16 @@ describe 'Evaluator', ->
         fiveMinusThree = new n.Subtraction new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
         assert.equal e.evaluate(fiveMinusThree), 2
 
+    describe 'visitMultiplication', ->
+      it 'evaluates', ->
+        fiveTimesThree = new n.Multiplication new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
+        assert.equal e.evaluate(fiveTimesThree), 15
+
+    describe 'visitDivision', ->
+      it 'evaluates', ->
+        fourOverTwo = new n.Division new n.IntegerLiteral('4'), new n.IntegerLiteral('2')
+        assert.equal e.evaluate(fourOverTwo), 2
+
 describe 'Comparator', ->
   describe '#', ->
     describe 'visitIntegerLiteral', ->
@@ -192,3 +202,13 @@ describe 'Comparator', ->
       it 'unbounds', ->
         fiveMinusThree = new n.Subtraction new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
         assert.equal e.unbound(fiveMinusThree).length, 0
+
+    describe 'visitMultiplication', ->
+      it 'unbounds', ->
+        fiveTimesThree = new n.Multiplication new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
+        assert.equal e.unbound(fiveTimesThree).length, 0
+
+    describe 'visitDivision', ->
+      it 'unbounds', ->
+        fiveOverThree = new n.Division new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
+        assert.equal e.unbound(fiveOverThree).length, 0

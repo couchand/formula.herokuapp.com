@@ -22,14 +22,12 @@ class Subtraction extends InfixExpression
     visitor.visitSubtraction @
 
 class Multiplication extends InfixExpression
-  constructor: (a, b) ->
-    super a, b, (left,  right) ->
-      left * right
+  visit: (visitor) ->
+    visitor.visitMultiplication @
 
 class Division extends InfixExpression
-  constructor: (a, b) ->
-    super a, b, (left,  right) ->
-      left / right
+  visit: (visitor) ->
+    visitor.visitDivision @
 
 class Concatenation extends InfixExpression
   constructor: (a, b) ->

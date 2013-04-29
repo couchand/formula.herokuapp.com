@@ -10,6 +10,10 @@ class FormulaVisitor
     @visitLiteral node
   visitParens: (node) ->
     node.formula.visit @
+  visitInfixExpression: (node, fn) ->
+    left = node.left.visit @
+    right = node.right.visit @
+    fn left, right
 
 class Evaluator extends FormulaVisitor
   constructor: (@data) ->
@@ -19,10 +23,7 @@ class Evaluator extends FormulaVisitor
   visitReference: (node) ->
     @data[node.name]
   visitComparison: (node) ->
-    left = node.left.visit @
-    right = node.right.visit @
-    comparator = getComparator node.comparator
-    comparator left, right
+    @visitInfixExpression node, getComparator node.comparator
 
 getComparator = (comparator) ->
   switch comparator
@@ -43,16 +44,19 @@ class Unbound extends FormulaVisitor
   constructor: ->
   visitLiteral: ->
     []
+  visitInfixExpression: (node) ->
+    super node, (left, right) ->
+      refs = []
+      for ref in left
+        refs.push ref if -1 is refs.indexOf ref
+      for ref in right
+        refs.push ref if -1 is refs.indexOf ref
+      refs
 
   visitReference: (node) ->
     [node.name]
   visitComparison: (node) ->
-    refs = []
-    for ref in node.left.visit @
-      refs.push ref if -1 is refs.indexOf ref
-    for ref in node.right.visit @
-      refs.push ref if -1 is refs.indexOf ref
-    refs
+    @visitInfixExpression node
 
 evaluate = (f, data) ->
   f.visit new Evaluator data

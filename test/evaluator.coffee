@@ -124,6 +124,11 @@ describe 'Evaluator', ->
         oneOrZero = new n.Disjunction new n.IntegerLiteral('1'), new n.IntegerLiteral('0')
         assert.equal e.evaluate(oneOrZero), true
 
+    describe 'visitFunctionCall', ->
+      it 'evaluates', ->
+        foobar = new n.FunctionCall 'and', [new n.IntegerLiteral('1'), new n.IntegerLiteral('0')]
+        assert.equal e.evaluate(foobar), false
+
 describe 'Comparator', ->
   describe '#', ->
     describe 'visitIntegerLiteral', ->
@@ -242,3 +247,8 @@ describe 'Comparator', ->
       it 'unbounds', ->
         oneOrZero = new n.Disjunction new n.IntegerLiteral('1'), new n.IntegerLiteral('0')
         assert.equal e.unbound(oneOrZero).length, 0
+
+    describe 'visitFunctionCall', ->
+      it 'unbounds', ->
+        foobar = new n.FunctionCall 'and', [new n.IntegerLiteral('1'), new n.IntegerLiteral('0')]
+        assert.equal e.unbound(foobar).length, 0

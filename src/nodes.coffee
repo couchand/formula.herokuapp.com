@@ -2,16 +2,6 @@
 
 class InfixExpression
   constructor: (@left, @right, @operator) ->
-  evaluate: (data) ->
-    @operator @left.evaluate(data), @right.evaluate(data)
-
-  unbound: ->
-    refs = []
-    for ref in @left.unbound()
-      refs.push ref if -1 is refs.indexOf ref
-    for ref in @right.unbound()
-      refs.push ref if -1 is refs.indexOf ref
-    refs
 
 class Addition extends InfixExpression
   visit: (visitor) ->

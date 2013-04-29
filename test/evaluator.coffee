@@ -109,6 +109,21 @@ describe 'Evaluator', ->
         fourOverTwo = new n.Division new n.IntegerLiteral('4'), new n.IntegerLiteral('2')
         assert.equal e.evaluate(fourOverTwo), 2
 
+    describe 'visitConcatenation', ->
+      it 'evaluates', ->
+        aThenB = new n.Concatenation new n.StringLiteral('a'), new n.StringLiteral('b')
+        assert.equal e.evaluate(aThenB), 'ab'
+
+    describe 'visitConjunction', ->
+      it 'evaluates', ->
+        oneAndZero = new n.Conjunction new n.IntegerLiteral('1'), new n.IntegerLiteral('0')
+        assert.equal e.evaluate(oneAndZero), false
+
+    describe 'visitDisjunction', ->
+      it 'evaluates', ->
+        oneOrZero = new n.Disjunction new n.IntegerLiteral('1'), new n.IntegerLiteral('0')
+        assert.equal e.evaluate(oneOrZero), true
+
 describe 'Comparator', ->
   describe '#', ->
     describe 'visitIntegerLiteral', ->
@@ -212,3 +227,18 @@ describe 'Comparator', ->
       it 'unbounds', ->
         fiveOverThree = new n.Division new n.IntegerLiteral('5'), new n.IntegerLiteral('3')
         assert.equal e.unbound(fiveOverThree).length, 0
+
+    describe 'visitConcatenation', ->
+      it 'unbounds', ->
+        aThenB = new n.Concatenation new n.StringLiteral('a'), new n.StringLiteral('b')
+        assert.equal e.unbound(aThenB).length, 0
+
+    describe 'visitConjunction', ->
+      it 'unbounds', ->
+        oneAndZero = new n.Conjunction new n.IntegerLiteral('1'), new n.IntegerLiteral('0')
+        assert.equal e.unbound(oneAndZero).length, 0
+
+    describe 'visitDisjunction', ->
+      it 'unbounds', ->
+        oneOrZero = new n.Disjunction new n.IntegerLiteral('1'), new n.IntegerLiteral('0')
+        assert.equal e.unbound(oneOrZero).length, 0

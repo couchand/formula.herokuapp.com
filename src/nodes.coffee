@@ -30,19 +30,16 @@ class Division extends InfixExpression
     visitor.visitDivision @
 
 class Concatenation extends InfixExpression
-  constructor: (a, b) ->
-    super a, b, (left,  right) ->
-      left + right
+  visit: (visitor) ->
+    visitor.visitConcatenation @
 
 class Conjunction extends InfixExpression
-  constructor: (a, b) ->
-    super a, b, (left,  right) ->
-      left and right
+  visit: (visitor) ->
+    visitor.visitConjunction @
 
 class Disjunction extends InfixExpression
-  constructor: (a, b) ->
-    super a, b, (left,  right) ->
-      left or right
+  visit: (visitor) ->
+    visitor.visitDisjunction @
 
 class Comparison extends InfixExpression
   constructor: (@comparator, a, b) ->

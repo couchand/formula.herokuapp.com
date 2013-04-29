@@ -25,3 +25,9 @@ describe 'Evaluator', ->
       it 'evaluates', ->
         parenFive = new n.Parens new n.IntegerLiteral '5'
         assert.equal e.evaluate(parenFive), 5
+
+    describe 'visitReference', ->
+      it 'evaluates', ->
+        foobar = new n.Reference ['foo', 'bar']
+        data = { 'foo.bar': 5 }
+        assert.equal e.evaluate(foobar, data), 5

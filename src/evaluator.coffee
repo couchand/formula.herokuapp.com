@@ -11,6 +11,8 @@ class Evaluator
     node.value
   visitParens: (node) ->
     node.formula.visit @
+  visitReference: (node) ->
+    @data[node.name]
 
 class Unbound
   constructor: ->
@@ -23,6 +25,8 @@ class Unbound
     []
   visitParens: (node) ->
     node.formula.visit @
+  visitReference: (node) ->
+    [node.name]
 
 evaluate = (f, data) ->
   f.visit new Evaluator data

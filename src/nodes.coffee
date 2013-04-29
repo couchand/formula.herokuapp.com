@@ -98,10 +98,8 @@ class IntegerLiteral
 class Reference
   constructor: (names) ->
     @name = names.join '.'
-  evaluate: (data) ->
-    data[@name]
-  unbound: ->
-    [@name]
+  visit: (visitor) ->
+    visitor.visitReference @
 
 class FunctionCall
   constructor: (fn, @parameters) ->

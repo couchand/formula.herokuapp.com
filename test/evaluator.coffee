@@ -37,3 +37,13 @@ describe 'evaluator', ->
           ]
         }
         assert.equal f.name, 'relationship__r.field__c'
+
+      it 'builds parens', ->
+        f = e.build {
+          expression: 'parens'
+          formula: {
+            expression: 'integer'
+            value: 5
+          }
+        }
+        assert.equal f.formula.value, 5

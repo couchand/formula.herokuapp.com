@@ -6,8 +6,7 @@ evaluator = require './evaluator'
 
 getTemplate = (formula_src) ->
   formula = parser.parse formula_src
-  tree = evaluator.build formula
-  lets = tree.unbound()
+  lets = evaluator.unbound formula
   lets.push 'expected'
   lets.push 'message'
   lets.join ','

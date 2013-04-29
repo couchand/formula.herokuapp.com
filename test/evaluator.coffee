@@ -71,7 +71,7 @@ describe 'evaluator', ->
         assert.equal f.params.length, 1
         assert.equal f.params[0].value, 5
 
-      it 'builds additions', ->
+      it 'builds infix expressions', ->
         f = e.build {
           expression: 'add'
           left:
@@ -87,4 +87,3 @@ describe 'evaluator', ->
         }
         assert.equal f.left.value, 5
         assert.equal f.right.value, 3
-        assert.equal f.evaluate({}), 8

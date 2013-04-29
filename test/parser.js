@@ -5,11 +5,11 @@ var assert = require('assert');
 
 describe('parser', function() {
     it('parses numbers', function() {
-        assert.equal( '5', p.parse('5') );
+        assert.equal( '5', p.parse('5').value );
     });
 
     it('ignores whitespace', function() {
-        assert.equal( '5', p.parse('   5   ') );
+        assert.equal( '5', p.parse('   5   ').value );
     });
 
     it('parses decimals', function() {
@@ -38,16 +38,16 @@ describe('parser', function() {
     });
 
     it('parses parens', function() {
-        assert.equal( '5', p.parse(' (  5  )  ').formula );
+        assert.equal( '5', p.parse(' (  5  )  ').formula.value );
     });
 
     it('parses function parameters', function() {
         var sum = p.parse('   sum (  3 ,  1 ,  8  ) ');
         assert.equal( 'function', sum.expression );
         assert.equal( 3, sum.parameters.length );
-        assert.equal( '3', sum.parameters[0] );
-        assert.equal( '1', sum.parameters[1] );
-        assert.equal( '8', sum.parameters[2] );
+        assert.equal( '3', sum.parameters[0].value );
+        assert.equal( '1', sum.parameters[1].value );
+        assert.equal( '8', sum.parameters[2].value );
     });
 
     it('parses nested functions', function() {
@@ -82,10 +82,10 @@ describe('parser', function() {
     it('parses math syntax', function() {
         var expr = p.parse('2+\n7*5');
         assert.equal( 'add', expr.expression );
-        assert.equal( '2', expr.left );
+        assert.equal( '2', expr.left.value );
         assert.equal( 'multiply', expr.right.expression );
-        assert.equal( '7', expr.right.left );
-        assert.equal( '5', expr.right.right );
+        assert.equal( '7', expr.right.left.value );
+        assert.equal( '5', expr.right.right.value );
     });
 
     it('parses order of operations correctly', function() {
@@ -101,7 +101,7 @@ describe('parser', function() {
     it('parses functions in math', function() {
         var nest = p.parse('2+today()');
         assert.equal( 'add', nest.expression );
-        assert.equal( '2', nest.left );
+        assert.equal( '2', nest.left.value );
         assert.equal( 'today', nest.right.function );
     });
 });

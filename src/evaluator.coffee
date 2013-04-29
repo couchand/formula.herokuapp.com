@@ -1,10 +1,7 @@
 # force formula evaluator
 
-class Evaluator
-  constructor: (@data) ->
-  visitLiteral: (node) ->
-    node.value
-
+class FormulaVisitor
+  constructor: ->
   visitIntegerLiteral: (node) ->
     @visitLiteral node
   visitDecimalLiteral: (node) ->
@@ -13,6 +10,12 @@ class Evaluator
     @visitLiteral node
   visitParens: (node) ->
     node.formula.visit @
+
+class Evaluator extends FormulaVisitor
+  constructor: (@data) ->
+  visitLiteral: (node) ->
+    node.value
+
   visitReference: (node) ->
     @data[node.name]
   visitComparison: (node) ->
@@ -32,19 +35,11 @@ class Evaluator
       when '>='
         left >= right
 
-class Unbound
+class Unbound extends FormulaVisitor
   constructor: ->
   visitLiteral: ->
     []
 
-  visitIntegerLiteral: (node) ->
-    @visitLiteral node
-  visitDecimalLiteral: (node) ->
-    @visitLiteral node
-  visitStringLiteral: (node) ->
-    @visitLiteral node
-  visitParens: (node) ->
-    node.formula.visit @
   visitReference: (node) ->
     [node.name]
   visitComparison: (node) ->

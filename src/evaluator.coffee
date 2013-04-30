@@ -19,6 +19,8 @@ class Evaluator extends FormulaVisitor
     @visitInfixExpression node, (a, b) -> a * b
   visitDivision: (node) ->
     @visitInfixExpression node, (a, b) -> a / b
+  visitExponentiation: (node) ->
+    @visitInfixExpression node, (a, b) -> Math.pow a, b
   visitConcatenation: (node) ->
     @visitInfixExpression node, (a, b) -> a + b
   visitConjunction: (node) ->

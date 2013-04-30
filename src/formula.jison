@@ -93,7 +93,7 @@ expr4
 
 exp_expr
   : expr4 '^' primary
-    { $$ = { expression: 'exponent', left: $expr4, right: $primary }; }
+    { $$ = new yy.Exponentiation( $expr4, $primary ); }
   ;
 
 mult_expr

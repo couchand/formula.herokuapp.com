@@ -19,6 +19,10 @@ class Division extends InfixExpression
   visit: (visitor) ->
     visitor.visitDivision @
 
+class Exponentiation extends InfixExpression
+  visit: (visitor) ->
+    visitor.visitExponentiation @
+
 class Concatenation extends InfixExpression
   visit: (visitor) ->
     visitor.visitConcatenation @
@@ -76,6 +80,7 @@ module.exports = {
   Subtraction: Subtraction
   Multiplication: Multiplication
   Division: Division
+  Exponentiation: Exponentiation
   Concatenation: Concatenation
   Conjunction: Conjunction
   Disjunction: Disjunction

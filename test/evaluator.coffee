@@ -109,6 +109,11 @@ describe 'Evaluator', ->
         fourOverTwo = new n.Division new n.IntegerLiteral('4'), new n.IntegerLiteral('2')
         assert.equal e.evaluate(fourOverTwo), 2
 
+    describe 'visitExponentiation', ->
+      it 'evaluates', ->
+        fiveSquared = new n.Exponentiation new n.IntegerLiteral('5'), new n.IntegerLiteral('2')
+        assert.equal e.evaluate(fiveSquared), 25
+
     describe 'visitConcatenation', ->
       it 'evaluates', ->
         aThenB = new n.Concatenation new n.StringLiteral('a'), new n.StringLiteral('b')

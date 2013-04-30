@@ -4,7 +4,38 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  FormulaVisitor = require('./visitor');
+  FormulaVisitor = (function() {
+
+    function FormulaVisitor() {}
+
+    FormulaVisitor.prototype.visitIntegerLiteral = function(node) {
+      return this.visitLiteral(node);
+    };
+
+    FormulaVisitor.prototype.visitDecimalLiteral = function(node) {
+      return this.visitLiteral(node);
+    };
+
+    FormulaVisitor.prototype.visitStringLiteral = function(node) {
+      return this.visitLiteral(node);
+    };
+
+    FormulaVisitor.prototype.visitParens = function(node) {
+      return node.formula.visit(this);
+    };
+
+    FormulaVisitor.prototype.visitInfixExpression = function(node, fn) {
+      var left, right;
+      left = node.left.visit(this);
+      right = node.right.visit(this);
+      return fn(left, right);
+    };
+
+    return FormulaVisitor;
+
+  })();
+
+  module.exports = FormulaVisitor;
 
   Printer = (function(_super) {
 

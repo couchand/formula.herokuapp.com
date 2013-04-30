@@ -1,86 +1,21 @@
 <html>
     <head>
-        <script type="text/javascript" src="../dst/parser.js"></script>
         <script>
+            var module = {}
+        </script>
+        <script type="text/javascript" src="../dst/parser.js"></script>
+        <script type="text/javascript" src="../dst/printer.js"></script>
+        <script>
+            var stringify = module.exports;
+        </script>
+        <script type="text/javascript" src="../dst/nodes.js"></script>
+        <script>
+            parser.yy = module.exports;
+
             function prettyPrint( text ) {
                 var tree = parser.parse( text );
                 var formatted = stringify( tree );
                 return formatted;
-            }
-
-            function stringify( tree, indent, tab ) {
-                var infix, params, i, prefix = '';
-
-                if ( null == indent ) {
-                    indent = 0;
-                }
-                if ( null == tab ) {
-                    tab = '    ';
-                }
-
-                for ( i = 0; i < indent; i++ ) {
-                    prefix += tab;
-                }
-
-                switch ( tree.expression ) {
-                    case 'function':
-                        if ( 0 == tree.parameters.length ) {
-                            return tree.function + '()';
-                        }
-                        params = [];
-                        for ( i in tree.parameters ) {
-                            params.push(
-                                prefix + tab +
-                                stringify( tree.parameters[i], indent+1, tab )
-                            );
-                        }
-                        return tree.function + '(\n' +
-                               params.join( ',\n' ) +
-                               '\n' + prefix + ')';
-                    case 'reference':
-                        return tree.name.join('.');
-                    case 'parens':
-                        return '( ' +
-                               stringify( tree.formula, indent, tab ) +
-                               ' )';
-                    case 'exponent':
-                        infix = '^';
-                        break;
-                    case 'multiply':
-                        infix = '*';
-                        break;
-                    case 'divide':
-                        infix = '/';
-                        break;
-                    case 'add':
-                        infix = '+';
-                        break;
-                    case 'subtract':
-                        infix = '-';
-                        break;
-                    case 'concat':
-                        infix = '&';
-                        break;
-                    case 'conjunction':
-                        infix = '&&';
-                        break;
-                    case 'disjunction':
-                        infix = '||';
-                        break;
-                    case 'comparison':
-                        infix = tree.comparator;
-                        break;
-                    case 'string':
-                        return '"' + tree.string + '"';
-                    case 'decimal':
-                        return tree.whole + '.' + tree.part;
-                    default:
-                        return tree;
-                }
-
-                return stringify( tree.left, indent, tab ) +
-                       ' ' + infix + ' ' +
-                       stringify( tree.right, indent, tab );
             }
 
             function ppTextArea( id ) {

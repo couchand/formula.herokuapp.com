@@ -12,8 +12,8 @@ app.get '/', (req, res) ->
 app.get '/prettyprint.html', (req, res) ->
   res.sendfile './example/prettyprint.html'
 
-app.get '/dst/parser.js', (req, res) ->
-  res.sendfile './dst/parser.js'
+app.get /\/dst\/(\w+)\.js/, (req, res) ->
+  res.sendfile "./dst/#{req.params[0]}.js"
 
 app.get '/test', (req, res) ->
   formula = req.query.formula

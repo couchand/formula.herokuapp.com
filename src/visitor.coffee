@@ -1,7 +1,6 @@
 # formula visitor abstract base class
 
 class FormulaVisitor
-  constructor: ->
   visitIntegerLiteral: (node) ->
     @visitLiteral node
   visitDecimalLiteral: (node) ->

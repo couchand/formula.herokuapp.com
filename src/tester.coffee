@@ -9,7 +9,7 @@ getTemplate = (formula_src) ->
   formula = parser.parse formula_src
   lets = evaluator.unbound formula
   lets.push 'expected'
-  lets.push 'message'
+  lets.unshift 'message'
   lets.join ','
 
 test = (formula_src, csv_src, report) ->

@@ -29,17 +29,15 @@
                     var resultTable = $('#results').empty();
                     var row = $('<tr>');
                     $.each( results[0], function(property, value) {
-                        if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
-                            row.append( $('<th>').text( property ) );
-                        }
+                        row.append( $('<th>').text( property ) );
                     });
-                    row.append( $('<th>').text( 'expected' ) );
-                    row.append( $('<th>').text( 'actual' ) );
-                    row.append( $('<th>').text( 'message' ) );
                     row.appendTo( resultTable );
 
                     $.each( results, function (index, result) {
                         var row = $('<tr>');
+
+                        row.append( $('<td>').text( result.message ) );
+
                         $.each( result, function(property, value) {
                             if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
                                 row.append( $('<td>').text( value ) );
@@ -53,8 +51,6 @@
                             actual.addClass('failure');
                         }
                         row.append( actual );
-
-                        row.append( $('<td>').text( result.message ) );
 
                         row.appendTo( resultTable );
                     });

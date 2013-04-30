@@ -15,9 +15,6 @@ app.get '/prettyprint.html', (req, res) ->
 app.get '/dst/parser.js', (req, res) ->
   res.sendfile './dst/parser.js'
 
-app.get '/dst/evaluator.js', (req, res) ->
-  res.sendfile './dst/evaluator.js'
-
 app.get '/test', (req, res) ->
   formula = req.query.formula
   data = req.query.data

@@ -1,19 +1,6 @@
 # force formula evaluator
 
-class FormulaVisitor
-  constructor: ->
-  visitIntegerLiteral: (node) ->
-    @visitLiteral node
-  visitDecimalLiteral: (node) ->
-    @visitLiteral node
-  visitStringLiteral: (node) ->
-    @visitLiteral node
-  visitParens: (node) ->
-    node.formula.visit @
-  visitInfixExpression: (node, fn) ->
-    left = node.left.visit @
-    right = node.right.visit @
-    fn left, right
+FormulaVisitor = require './visitor'
 
 class Evaluator extends FormulaVisitor
   constructor: (@data) ->

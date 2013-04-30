@@ -15,7 +15,7 @@
     formula = parser.parse(formula_src);
     lets = evaluator.unbound(formula);
     lets.push('expected');
-    lets.push('message');
+    lets.unshift('message');
     return lets.join(',');
   };
 

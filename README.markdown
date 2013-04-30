@@ -19,6 +19,8 @@ documentation
 -------------
 
 parses formula syntax and returns an abstract syntax tree.
+you can find the definition of the node types in
+`nodes.coffee`.
 
  * `FunctionCall`
    * `name`

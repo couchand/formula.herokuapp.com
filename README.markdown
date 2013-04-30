@@ -50,7 +50,7 @@ parses formula syntax and returns an abstract syntax tree.
 use the visitor pattern to traverse the nodes. all nodes in
 the ast implement a `visit` method. this takes one
 parameter, the visitor, and calls the corresponding `visitX`
-method, where `X` is the particular node type.
+method on it, where `X` is the particular node type.
 
 to make this easy, extend the class found in `visitor.coffee`.
 

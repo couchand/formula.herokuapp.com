@@ -45,9 +45,9 @@ formula
 
 function_call
   : identifier '(' ')'
-    { $$ = new node.FunctionCall( $identifier, [] ); }
+    { $$ = new yy.FunctionCall( $identifier, [] ); }
   | identifier '(' parameters ')'
-    { $$ = new node.FunctionCall( $identifier, $parameters ); }
+    { $$ = new yy.FunctionCall( $identifier, $parameters ); }
   ;
 
 parameters
@@ -98,33 +98,33 @@ exp_expr
 
 mult_expr
   : expr3 '*' expr4
-    { $$ = new node.Multiplication( $expr3, $expr4 ); }
+    { $$ = new yy.Multiplication( $expr3, $expr4 ); }
   | expr3 '/' expr4
-    { $$ = new node.Division( $expr3, $expr4 ); }
+    { $$ = new yy.Division( $expr3, $expr4 ); }
   ;
 
 add_expr
   : expr2 '+' expr3
-    { $$ = new node.Addition( $expr2, $expr3 ); }
+    { $$ = new yy.Addition( $expr2, $expr3 ); }
   | expr2 '-' expr3
-    { $$ = new node.Subtraction( $expr2, $expr3 ); }
+    { $$ = new yy.Subtraction( $expr2, $expr3 ); }
   | expr2 '&' expr3
-    { $$ = new node.Concatenation( $expr2, $expr3 ); }
+    { $$ = new yy.Concatenation( $expr2, $expr3 ); }
   ;
 
 and_expr
   : expr1 '&&' expr2
-    { $$ = new node.Conjunction( $expr1, $expr2 ); }
+    { $$ = new yy.Conjunction( $expr1, $expr2 ); }
   ;
 
 or_expr
   : expr0 '||' expr1
-    { $$ = new node.Disjunction( $expr0, $expr1 ); }
+    { $$ = new yy.Disjunction( $expr0, $expr1 ); }
   ;
 
 comp_expr
   : expr comparator expr0
-    { $$ = new node.Comparison( $comparator, $expr, $expr0 ); }
+    { $$ = new yy.Comparison( $comparator, $expr, $expr0 ); }
   ;
 
 comparator
@@ -143,12 +143,12 @@ primary
   | function_call
   | reference
   | '(' formula ')'
-    { $$ = new node.Parens( $formula ); }
+    { $$ = new yy.Parens( $formula ); }
   ;
 
 reference
   : identifiers
-    { $$ = new node.Reference( $identifiers ); }
+    { $$ = new yy.Reference( $identifiers ); }
   ;
 
 identifiers
@@ -164,7 +164,7 @@ identifier
 
 literal
   : int_literal
-    { $$ = new node.IntegerLiteral( $int_literal ); }
+    { $$ = new yy.IntegerLiteral( $int_literal ); }
   | dec_literal
   | quoted_string
   ;
@@ -175,12 +175,12 @@ int_literal
 
 dec_literal
   : int_literal '.' int_literal
-    { $$ = new node.DecimalLiteral( $int_literal1, $int_literal2 ); }
+    { $$ = new yy.DecimalLiteral( $int_literal1, $int_literal2 ); }
   ;
 
 quoted_string
   : str_literal
-    { $$ = new node.StringLiteral( $str_literal.substring(1,$str_literal.length-1) ); }
+    { $$ = new yy.StringLiteral( $str_literal.substring(1,$str_literal.length-1) ); }
   ;
 
 str_literal

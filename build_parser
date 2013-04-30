@@ -8,4 +8,3 @@ fi
 
 
 jison --debug "$DEBUG" -o dst/parser.js src/formula.jison
-patch dst/parser.js src/monkey.patch

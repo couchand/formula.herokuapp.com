@@ -1,6 +1,7 @@
 # parser tests
 
 p = require '../dst/parser'
+p.parser.yy = require '../src/nodes'
 assert = require 'assert'
 
 describe 'parser', ->

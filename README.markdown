@@ -1,7 +1,8 @@
 force.com formula parser
 ========================
 
-parse force.com formula syntax.
+parse force.com formula syntax. pretty-print, evaluate,
+and unit test your formulas.
 
  * quick start
  * documentation

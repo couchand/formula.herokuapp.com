@@ -7,4 +7,4 @@ if [ "$DEBUG" == "" ] ; then
 fi
 
 
-jison --debug "$DEBUG" -o dst/parser.js src/formula.jison
+jison --debug "$DEBUG" -o ./dst/parser.js ./src/formula.jison

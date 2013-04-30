@@ -35,8 +35,6 @@
 
   })();
 
-  module.exports = FormulaVisitor;
-
   Printer = (function(_super) {
 
     __extends(Printer, _super);

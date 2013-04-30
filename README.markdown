@@ -11,53 +11,51 @@ parse force.com formula syntax.
 quick start
 -----------
 
-fire up your browser and load `example/prettyprint.html`.
+fire up your browser and load <http://formula.herokuapp.com/prettyprint.html>
+or `example/prettyprint.html`.
 type in some formula syntax and click 'pretty print!'.
 
 documentation
 -------------
 
-parses formula syntax and returns a json representation
-of the parse tree.  leaf nodes are just their text value,
-inner nodes are objects.  they have an `expression`
-property that describes their node type, and other
-properties to complete the description.
+parses formula syntax and returns an abstract syntax tree.
 
- * `function`: function call
-   * `function`: text name
+ * `FunctionCall`: function call
+   * `name`: text name
    * `parameters`: array of nodes
- * `reference`: field reference
+ * `Reference`: field reference
    * `name`: array of text reference parts
- * `add`: arithmetic expressions
- * `subtract`
- * `multiply`
- * `divide`
- * `concat`: string expression
- * `conjunction`: logical expressions
- * `disjunction`
+ * `Addition`: arithmetic expressions
+ * `Subtraction`
+ * `Multiplication`
+ * `Division`
+ * `Concatenation`: string expression
+ * `Conjunction`: logical expressions
+ * `Disjunction`
    * `left`: left side of operand
    * `right`: right side of operand
- * `comparison`: comparison expression
+ * `Comparison`: comparison expression
    * `comparator`: comparison operator
    * `left`: left side of comparison
    * `right`: right side of comparison
- * `parens`: parenthesized expression
+ * `Parens`: parenthesized expression
    * `formula`: nested formula
- * `string`: quoted string
-   * `string`: the string value
- * `decimal`: decimal literal
-   * `whole`: the integer part
-   * `part`: the decimal part
- * `integer`: integer literal
+ * `StringLiteral`: quoted string
+   * `value`: the string value
+ * `DecimalLiteral`: decimal literal
+   * `value`: value
+ * `IntegerLiteral`: integer literal
    * `value`: value
 
 dependencies
 ------------
 
 run
- * none
+ * express (for server only)
+ * csv (for tester and server)
 
 build
+ * coffee
  * jison
 
 more information

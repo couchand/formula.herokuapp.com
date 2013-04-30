@@ -78,57 +78,9 @@
       return "( " + (node.formula.visit(this)) + " )";
     };
 
-    Printer.prototype.visitAddition = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " + " + b;
-      });
-    };
-
-    Printer.prototype.visitSubtraction = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " - " + b;
-      });
-    };
-
-    Printer.prototype.visitMultiplication = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " * " + b;
-      });
-    };
-
-    Printer.prototype.visitDivision = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " / " + b;
-      });
-    };
-
-    Printer.prototype.visitExponentiation = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " ^ " + b;
-      });
-    };
-
-    Printer.prototype.visitConcatenation = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " & " + b;
-      });
-    };
-
-    Printer.prototype.visitConjunction = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " && " + b;
-      });
-    };
-
-    Printer.prototype.visitDisjunction = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " || " + b;
-      });
-    };
-
-    Printer.prototype.visitComparison = function(node) {
-      return this.visitInfixExpression(node, function(a, b) {
-        return "" + a + " " + node.comparator + " " + b;
+    Printer.prototype.visitInfixExpression = function(node) {
+      return Printer.__super__.visitInfixExpression.call(this, node, function(a, b) {
+        return "" + a + " " + node.operator + " " + b;
       });
     };
 

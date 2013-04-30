@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/couchand/force-formula.png?branch=master)](https://travis-ci.org/couchand/force-formula)
 force.com formula parser
 ========================
 

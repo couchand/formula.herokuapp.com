@@ -9,31 +9,31 @@ class Evaluator extends FormulaVisitor
 
   visitReference: (node) ->
     @data[node.name]
-  visitComparison: (node) ->
-    @visitInfixExpression node, getComparator node.comparator
-  visitAddition: (node) ->
-    @visitInfixExpression node, (a, b) -> a + b
-  visitSubtraction: (node) ->
-    @visitInfixExpression node, (a, b) -> a - b
-  visitMultiplication: (node) ->
-    @visitInfixExpression node, (a, b) -> a * b
-  visitDivision: (node) ->
-    @visitInfixExpression node, (a, b) -> a / b
-  visitExponentiation: (node) ->
-    @visitInfixExpression node, (a, b) -> Math.pow a, b
-  visitConcatenation: (node) ->
-    @visitInfixExpression node, (a, b) -> a + b
-  visitConjunction: (node) ->
-    @visitInfixExpression node, (a, b) -> a and b
-  visitDisjunction: (node) ->
-    @visitInfixExpression node, (a, b) -> a or b
+  visitInfixExpression: (node) ->
+    super node, getOperator node.operator
   visitFunctionCall: (node) ->
     vals = (param.visit @ for param in node.parameters)
     func = funcs[node.name]
     func vals
 
-getComparator = (comparator) ->
-  switch comparator
+getOperator = (operator) ->
+  switch operator
+    when '+'
+      (a, b) -> a + b
+    when '-'
+      (a, b) -> a - b
+    when '*'
+      (a, b) -> a * b
+    when '/'
+      (a, b) -> a / b
+    when '^'
+      (a, b) -> Math.pow a, b
+    when '&'
+      (a, b) -> a + b
+    when '&&'
+      (a, b) -> a and b
+    when '||'
+      (a, b) -> a or b
     when '=', '=='
       (left, right) -> left is right
     when '!=', '<>'
@@ -108,22 +108,6 @@ class Unbound extends FormulaVisitor
 
   visitReference: (node) ->
     [node.name]
-  visitComparison: (node) ->
-    @visitInfixExpression node
-  visitAddition: (node) ->
-    @visitInfixExpression node
-  visitSubtraction: (node) ->
-    @visitInfixExpression node
-  visitMultiplication: (node) ->
-    @visitInfixExpression node
-  visitDivision: (node) ->
-    @visitInfixExpression node
-  visitConcatenation: (node) ->
-    @visitInfixExpression node
-  visitConjunction: (node) ->
-    @visitInfixExpression node
-  visitDisjunction: (node) ->
-    @visitInfixExpression node
   visitFunctionCall: (node) ->
     refs = []
     for param in node.parameters

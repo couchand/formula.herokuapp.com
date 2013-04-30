@@ -17,24 +17,8 @@ class Printer extends FormulaVisitor
     node.name
   visitParens: (node) ->
     "( #{ node.formula.visit @ } )"
-  visitAddition: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} + #{b}"
-  visitSubtraction: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} - #{b}"
-  visitMultiplication: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} * #{b}"
-  visitDivision: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} / #{b}"
-  visitExponentiation: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} ^ #{b}"
-  visitConcatenation: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} & #{b}"
-  visitConjunction: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} && #{b}"
-  visitDisjunction: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} || #{b}"
-  visitComparison: (node) ->
-    @visitInfixExpression node, (a, b) -> "#{a} #{node.comparator} #{b}"
+  visitInfixExpression: (node) ->
+    super node, (a, b) -> "#{a} #{node.operator} #{b}"
   visitFunctionCall: (node) ->
     return "#{node.name}()" if node.parameters.length is 0
     @indent += 1

@@ -1,45 +1,9 @@
 # force formula abstract syntax tree
 
 class InfixExpression
-  constructor: (@left, @right, @operator) ->
-
-class Addition extends InfixExpression
+  constructor: (@operator, @left, @right) ->
   visit: (visitor) ->
-    visitor.visitAddition @
-
-class Subtraction extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitSubtraction @
-
-class Multiplication extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitMultiplication @
-
-class Division extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitDivision @
-
-class Exponentiation extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitExponentiation @
-
-class Concatenation extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitConcatenation @
-
-class Conjunction extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitConjunction @
-
-class Disjunction extends InfixExpression
-  visit: (visitor) ->
-    visitor.visitDisjunction @
-
-class Comparison extends InfixExpression
-  constructor: (@comparator, a, b) ->
-    super a, b
-  visit: (visitor) ->
-    visitor.visitComparison @
+    visitor.visitInfixExpression @
 
 class Parens
   constructor: (@formula) ->
@@ -76,15 +40,7 @@ class FunctionCall
     visitor.visitFunctionCall @
 
 module.exports = {
-  Addition: Addition
-  Subtraction: Subtraction
-  Multiplication: Multiplication
-  Division: Division
-  Exponentiation: Exponentiation
-  Concatenation: Concatenation
-  Conjunction: Conjunction
-  Disjunction: Disjunction
-  Comparison: Comparison
+  InfixExpression: InfixExpression
   Parens: Parens
   StringLiteral: StringLiteral
   IntegerLiteral: IntegerLiteral

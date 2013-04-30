@@ -93,38 +93,38 @@ expr4
 
 exp_expr
   : expr4 '^' primary
-    { $$ = new yy.Exponentiation( $expr4, $primary ); }
+    { $$ = new yy.InfixExpression( '^', $expr4, $primary ); }
   ;
 
 mult_expr
   : expr3 '*' expr4
-    { $$ = new yy.Multiplication( $expr3, $expr4 ); }
+    { $$ = new yy.InfixExpression( '*', $expr3, $expr4 ); }
   | expr3 '/' expr4
-    { $$ = new yy.Division( $expr3, $expr4 ); }
+    { $$ = new yy.InfixExpression( '/', $expr3, $expr4 ); }
   ;
 
 add_expr
   : expr2 '+' expr3
-    { $$ = new yy.Addition( $expr2, $expr3 ); }
+    { $$ = new yy.InfixExpression( '+', $expr2, $expr3 ); }
   | expr2 '-' expr3
-    { $$ = new yy.Subtraction( $expr2, $expr3 ); }
+    { $$ = new yy.InfixExpression( '-', $expr2, $expr3 ); }
   | expr2 '&' expr3
-    { $$ = new yy.Concatenation( $expr2, $expr3 ); }
+    { $$ = new yy.InfixExpression( '&', $expr2, $expr3 ); }
   ;
 
 and_expr
   : expr1 '&&' expr2
-    { $$ = new yy.Conjunction( $expr1, $expr2 ); }
+    { $$ = new yy.InfixExpression( '&&', $expr1, $expr2 ); }
   ;
 
 or_expr
   : expr0 '||' expr1
-    { $$ = new yy.Disjunction( $expr0, $expr1 ); }
+    { $$ = new yy.InfixExpression( '||', $expr0, $expr1 ); }
   ;
 
 comp_expr
   : expr comparator expr0
-    { $$ = new yy.Comparison( $comparator, $expr, $expr0 ); }
+    { $$ = new yy.InfixExpression( $comparator, $expr, $expr0 ); }
   ;
 
 comparator

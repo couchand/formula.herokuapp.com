@@ -58,6 +58,7 @@ describe 'InfixExpression', ->
   describe '.', ->
     describe 'constructor', ->
       it 'builds infix expressions', ->
-        f = new n.Addition new n.IntegerLiteral(5), new n.IntegerLiteral(3)
+        f = new n.InfixExpression '+', new n.IntegerLiteral(5), new n.IntegerLiteral(3)
+        assert.equal f.operator, '+'
         assert.equal f.left.value, 5
         assert.equal f.right.value, 3

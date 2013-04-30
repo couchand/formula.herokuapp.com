@@ -20,11 +20,11 @@ documentation
 
 parses formula syntax and returns an abstract syntax tree.
 
- * `FunctionCall`: function call
-   * `name`: text name
-   * `parameters`: array of nodes
+ * `FunctionCall`
+   * `name`
+   * `parameters`
  * `Reference`: field reference
-   * `name`: array of text reference parts
+   * `name`
  * `Addition`: arithmetic expressions
  * `Subtraction`
  * `Multiplication`
@@ -40,12 +40,12 @@ parses formula syntax and returns an abstract syntax tree.
    * `right`: right side of comparison
  * `Parens`: parenthesized expression
    * `formula`: nested formula
- * `StringLiteral`: quoted string
-   * `value`: the string value
- * `DecimalLiteral`: decimal literal
-   * `value`: value
- * `IntegerLiteral`: integer literal
-   * `value`: value
+ * `StringLiteral`
+   * `value`
+ * `DecimalLiteral`
+   * `value`
+ * `IntegerLiteral`
+   * `value`
 
 dependencies
 ------------

@@ -14,6 +14,14 @@
     return res.sendfile('./example/test.html');
   });
 
+  app.get('/prettyprint.html', function(req, res) {
+    return res.sendfile('./example/prettyprint.html');
+  });
+
+  app.get('/dst/parser.js', function(req, res) {
+    return res.sendfile('./dst/parser.js');
+  });
+
   app.get('/test', function(req, res) {
     var data, formula;
     formula = req.query.formula;

@@ -9,10 +9,9 @@
   evaluator = require('./evaluator');
 
   getTemplate = function(formula_src) {
-    var formula, lets, tree;
+    var formula, lets;
     formula = parser.parse(formula_src);
-    tree = evaluator.build(formula);
-    lets = tree.unbound();
+    lets = evaluator.unbound(formula);
     lets.push('expected');
     lets.push('message');
     return lets.join(',');
@@ -26,8 +25,6 @@
       columns: true
     }).transform(function(data) {
       data.actual = evaluator.evaluate(formula, data);
-      return data;
-    }).on('record', function(data, index) {
       return results.push(data);
     }).on('end', function() {
       return report(results);

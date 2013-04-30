@@ -6,6 +6,8 @@
 
   parser = require('../dst/parser');
 
+  parser.parser.yy = require('./nodes');
+
   evaluator = require('./evaluator');
 
   getTemplate = function(formula_src) {

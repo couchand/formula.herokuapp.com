@@ -18,8 +18,8 @@
     return res.sendfile('./example/prettyprint.html');
   });
 
-  app.get('/dst/parser.js', function(req, res) {
-    return res.sendfile('./dst/parser.js');
+  app.get(/\/dst\/(\w+)\.js/, function(req, res) {
+    return res.sendfile("./dst/" + req.params[0] + ".js");
   });
 
   app.get('/test', function(req, res) {

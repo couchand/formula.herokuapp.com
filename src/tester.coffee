@@ -2,6 +2,7 @@
 
 csv = require 'csv'
 parser = require '../dst/parser'
+parser.parser.yy = require './nodes'
 evaluator = require './evaluator'
 
 getTemplate = (formula_src) ->

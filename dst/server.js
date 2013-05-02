@@ -18,6 +18,10 @@
     return res.sendfile('./example/prettyprint.html');
   });
 
+  app.get('/tree.html', function(req, res) {
+    return res.sendfile('./example/tree.html');
+  });
+
   app.get(/\/dst\/(\w+)\.js/, function(req, res) {
     return res.sendfile("./dst/" + req.params[0] + ".js");
   });

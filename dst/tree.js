@@ -49,6 +49,12 @@
       };
     };
 
+    TreeBuilder.prototype.visitStringLiteral = function(node) {
+      return {
+        name: "'" + node.value + "'"
+      };
+    };
+
     TreeBuilder.prototype.visitReference = function(node) {
       return {
         name: node.name

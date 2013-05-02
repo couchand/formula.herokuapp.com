@@ -12,6 +12,9 @@ app.get '/', (req, res) ->
 app.get '/prettyprint.html', (req, res) ->
   res.sendfile './example/prettyprint.html'
 
+app.get '/tree.html', (req, res) ->
+  res.sendfile './example/tree.html'
+
 app.get /\/dst\/(\w+)\.js/, (req, res) ->
   res.sendfile "./dst/#{req.params[0]}.js"
 

@@ -60,7 +60,7 @@
       .attr("transform", "translate(40, 0)"); // shift everything to the right
 
       // Create a tree "canvas"
-      var tree = d3.layout.tree()
+      var tree = d3.layout.cluster()
         .size([300,400]);
 
       var diagonal = d3.svg.diagonal()

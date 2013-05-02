@@ -9,13 +9,19 @@
 }
 
 .label {
-    font: bold 14px monospace;
+    font: bold 12px monospace;
+}
+
+.node ellipse {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }
 
 .link {
     fill: none;
     stroke: #ccc;
-    stroke-width: 2.5px;
+    stroke-width: 3.5px;
 }
 </style>
 <script>
@@ -85,17 +91,19 @@
       var node = vis.selectAll("g.node")
       .data(nodes)
       .enter().append("svg:g")
+      .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
       // Add the dot at every node
-      node.append("svg:circle")
-      .attr("r", 3.5);
+      node.append("svg:ellipse")
+      .attr("rx", 33.5)
+      .attr("ry", 9.5);
 
       // place the name atribute left or right depending if children
       node.append("svg:text")
-      .attr("x", function(d) { return d.children ? -8 : 8; })
-      .attr("dy", 3)
-      .attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
+      .attr("x", -1)
+      .attr("dy", 5)
+      .attr("text-anchor", function(d) { return "middle"; })// d.children ? "end" : "start"; })
       .attr("class", "label")
       .text(function(d) { return d.name; })
 }

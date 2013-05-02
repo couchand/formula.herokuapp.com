@@ -5,6 +5,8 @@ FormulaVisitor = require './visitor'
 class TreeBuilder extends FormulaVisitor
   visitLiteral: (node) ->
     { name: node.value }
+  visitStringLiteral: (node) ->
+    { name: "'#{node.value}'" }
   visitReference: (node) ->
     { name: node.name }
   visitParens: (node) ->

@@ -9,14 +9,20 @@ app.use express.logger()
 app.get '/', (req, res) ->
   res.sendfile './example/test.html'
 
+app.get '/test.html', (req, res) ->
+  res.sendfile './example/test.html'
+
 app.get '/prettyprint.html', (req, res) ->
   res.sendfile './example/prettyprint.html'
 
 app.get '/tree.html', (req, res) ->
   res.sendfile './example/tree.html'
 
-app.get /\/dst\/(\w+)\.js/, (req, res) ->
+app.get /\/(\w+)\.js/, (req, res) ->
   res.sendfile "./force-formula/dst/#{req.params[0]}.js"
+
+app.get /\/(\w+)\.css/, (req, res) ->
+  res.sendfile "./example/#{req.params[0]}.css"
 
 app.get '/test', (req, res) ->
   formula = req.query.formula

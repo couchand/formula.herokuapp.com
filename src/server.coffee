@@ -18,6 +18,9 @@ app.get '/prettyprint.html', (req, res) ->
 app.get '/tree.html', (req, res) ->
   res.sendfile './example/tree.html'
 
+app.get '/drawtree.js', (req, res) ->
+  res.sendfile "./example/drawtree.js"
+
 app.get /\/(\w+)\.js/, (req, res) ->
   res.sendfile "./force-formula/dst/#{req.params[0]}.js"
 

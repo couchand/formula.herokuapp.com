@@ -7,6 +7,7 @@ function gTextArea( id ) {
     consoleText.innerHTML = '';
     try {
         renderTree( buildTree( parser.parse( el.value ) ) );
+        saveFormula();
     }
     catch (ex) {
         console.className = 'err';

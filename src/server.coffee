@@ -21,6 +21,9 @@ app.get '/tree.html', (req, res) ->
 app.get '/drawtree.js', (req, res) ->
   res.sendfile "./example/drawtree.js"
 
+app.get '/persist.js', (req, res) ->
+  res.sendfile "./example/persist.js"
+
 app.get /\/(\w+)\.js/, (req, res) ->
   res.sendfile "./force-formula/dst/#{req.params[0]}.js"
 

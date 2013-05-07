@@ -45,24 +45,24 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                min-height: 20%;
+                min-height: 15%;
                 padding: 10px 40px;
                 font-size: 14px;
                 font-family: monospace;
                 background-color: #bbb;
             }
             #console.err {
-                background-color: #faa;
+                background-color: #daa;
             }
 
             .column {
                 height: 70%;
-                width: 50%;
+                width: 33%;
                 float: left;
             }
             .columnContent {
                 height: 100%;
-                width: 98%;
+                width: 93%;
                 margin: 0 auto;
             }
 
@@ -82,14 +82,17 @@
                 <li><a href="test.html">Unit Test Console</a></li>
             </ul>
         </div>
-        <div class="column">
-            <textarea class="columnContent" id="src"></textarea>
-            <button onClick="ppTextArea('src');">Pretty Print!</button>
-        </div>
         <div class="column"><div class="columnContent">
             <h2>Pretty Printer</h3>
             <p>Pretty printing is a way of formatting source code to improve readability.  It is...</p>
         </div></div>
+        <div class="column io">
+            <textarea class="columnContent" id="src" onKeyUp="ppTextArea('src');"></textarea>
+            <button onClick="ppTextArea('src');">Pretty Print!</button>
+        </div>
+        <div class="column io">
+            <textarea class="columnContent" id="dst"></textarea>
+        </div>
         <div id="console"><pre><span id="consoleText"></span></div>
         <script type="text/javascript">
           var _gaq = _gaq || [];

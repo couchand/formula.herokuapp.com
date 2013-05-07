@@ -3,7 +3,8 @@
   <head>
     <title>Formula Tree Graph</title>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<style>
+    <script src="drawtree.js"></script>
+    <style>
 #viz {
     display: inline-block;
 }
@@ -23,9 +24,8 @@
     stroke: #ccc;
     stroke-width: 3.5px;
 }
-</style>
-        <link rel="stylesheet" href="navbar.css">
-<script src="drawtree.js"></script>
+    </style>
+    <link rel="stylesheet" href="navbar.css">
   </head>
   <body>
         <a href="https://github.com/couchand/force-formula"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -42,7 +42,7 @@
         <textarea rows="10" cols="100" id="console"></textarea>
         <button onClick="gTextArea('src');">Graph!</button>
         <script>
-            var module = {}
+            var module = {};
         </script>
         <script type="text/javascript" src="parser.js"></script>
         <script type="text/javascript" src="tree.js"></script>
@@ -50,9 +50,9 @@
             var buildTree = module.exports;
         </script>
         <script type="text/javascript" src="nodes.js"></script>
-    <script type="text/javascript">
- parser.yy = module.exports;
-    </script>
+        <script type="text/javascript">
+            parser.yy = module.exports;
+        </script>
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-40537296-1']);

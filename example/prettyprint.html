@@ -20,18 +20,39 @@
             }
 
             function ppTextArea( id ) {
-                var pretty, el = document.getElementById( id );
+                var pretty,
+                    el = document.getElementById( id ),
+                    console = document.getElementById('console');
+                    consoleText = document.getElementById('consoleText');
 
-                document.getElementById('console').value = '';
+                consoleText.innerHTML = '';
+                console.className = '';
                 try {
                     pretty = prettyPrint( el.value );
                     el.value = pretty;
                 }
                 catch (ex) {
-                    document.getElementById('console').value = '' + ex;
+                    consoleText.innerHTML = '' + ex;
+                    console.className = 'err';
                 }
             }
         </script>
+        <style>
+            #console {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                min-height: 20%;
+                padding: 10px 40px;
+                font-size: 14px;
+                font-family: monospace;
+                background-color: #bbb;
+            }
+            #console.err {
+                background-color: #faa;
+            }
+        </style>
     </head>
     <body>
         <a href="https://github.com/couchand/force-formula"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -43,7 +64,7 @@
             </ul>
         </div>
         <textarea rows="30" cols="100" id="src"></textarea>
-        <textarea rows="30" cols="60" id="console"></textarea>
+        <div id="console"><pre><span id="consoleText"></span></div>
         <br>
         <button onClick="ppTextArea('src');">Pretty Print!</button>
         <script type="text/javascript">

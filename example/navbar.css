@@ -23,7 +23,11 @@ body {
     height: 26px;
     font-family: sans-serif;
     border-left: 3px solid #777;
+    margin: 0 -5px 0 0;
     padding: 0;
+}
+#navbar li.active {
+    background-color: #666;
 }
 #navbar li:first-child {
     border-left: none;

@@ -2,6 +2,7 @@
   "name": "formula.herokuapp.com",
   "version": "0.0.1",
   "dependencies": {
+    "csv": "0.1.x",
     "express": "3.1.x",
     "coffee-script": "1.6.x"
   },

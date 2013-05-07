@@ -1,26 +1,30 @@
 function gTextArea( id ) {
-    var el = document.getElementById( id );
+    var el = document.getElementById( id ),
+        console = document.getElementById('console'),
+        consoleText = document.getElementById('consoleText');
 
-    document.getElementById('console').value = '';
+    console.className = '';
+    consoleText.innerHTML = '';
     try {
         renderTree( buildTree( parser.parse( el.value ) ) );
     }
     catch (ex) {
-        document.getElementById('console').value = '' + ex;
+        console.className = 'err';
+        consoleText.innerHTML = '' + ex;
     }
 }
 
 function renderTree(treeData) {
     // Create a svg canvas
     var vis = d3.select("#viz").html(null).append("svg:svg")
-        .attr("width", 600)
-        .attr("height", 300)
+        .attr("width", 700)
+        .attr("height", 400)
       .append("svg:g")
         .attr("transform", "translate(40, 0)"); // shift everything to the right
 
     // Create a tree "canvas"
     var tree = d3.layout.cluster()
-        .size([300,400]);
+        .size([400,600]);
 
     var diagonal = d3.svg.diagonal()
     // change x and y (for the left to right tree)

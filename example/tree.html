@@ -4,9 +4,23 @@
     <title>Formula Tree Graph</title>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="drawtree.js"></script>
+    <script>
+        var module = {};
+    </script>
+    <script type="text/javascript" src="parser.js"></script>
+    <script type="text/javascript" src="tree.js"></script>
+    <script>
+        var buildTree = module.exports;
+    </script>
+    <script type="text/javascript" src="nodes.js"></script>
+    <script type="text/javascript">
+        parser.yy = module.exports;
+    </script>
+    <link rel="stylesheet" href="navbar.css">
     <style>
 #viz {
-    display: inline-block;
+    display: block;
+    height: 70%;
 }
 
 .label {
@@ -24,8 +38,45 @@
     stroke: #ccc;
     stroke-width: 3.5px;
 }
+
+            #console {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                min-height: 20%;
+                padding: 10px 40px;
+                font-size: 14px;
+                font-family: monospace;
+                background-color: #bbb;
+            }
+            #console.err {
+                background-color: #faa;
+            }
+            html, body {
+                height: 100%;
+            }
+            .column {
+                height: 70%;
+                width: 50%;
+                float: left;
+            }
+            .columnContent {
+                height: 100%;
+                width: 96%;
+                margin: 0 auto;
+            }
+            .columnContent textarea {
+                width: 100%;
+                height: 25%;
+            }
+
+            button {
+                float: right;
+                margin: 10px -5px;
+                padding: 10px 30px;
+            }
     </style>
-    <link rel="stylesheet" href="navbar.css">
   </head>
   <body>
     <a href="https://github.com/couchand/force-formula"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -36,23 +87,16 @@
             <li><a href="test.html">Unit Test Console</a></li>
         </ul>
     </div>
-    <textarea rows="20" cols="100" id="src" onKeyUp="gTextArea('src');"></textarea>
-    <div id="viz"></div>
-    <br>
-    <textarea rows="10" cols="100" id="console"></textarea>
-    <button onClick="gTextArea('src');">Graph!</button>
-    <script>
-        var module = {};
-    </script>
-    <script type="text/javascript" src="parser.js"></script>
-    <script type="text/javascript" src="tree.js"></script>
-    <script>
-        var buildTree = module.exports;
-    </script>
-    <script type="text/javascript" src="nodes.js"></script>
-    <script type="text/javascript">
-        parser.yy = module.exports;
-    </script>
+    <div class="column"><div class="columnContent">
+        <div id="viz"></div>
+        <textarea id="src" onKeyUp="gTextArea('src');"></textarea>
+        <button onClick="gTextArea('src');">Graph!</button>
+    </div></div>
+    <div class="column"><div class="columnContent">
+        <h2>Tree Visualization</h3>
+        <p>This tree visualization is a representation of the abstract syntax tree defined by a piece of code.  Like pretty printing it is a way of getting a better understanding of the logical structure of a formula.</p>
+    </div></div>
+    <div id="console"><pre><span id="consoleText"></span></div>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-40537296-1']);

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-coffee -c -o ./dst/ ./src/*.coffee
-./build_parser
-./build_printer

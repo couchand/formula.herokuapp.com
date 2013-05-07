@@ -1,7 +1,0 @@
-#!/bin/bash
-
-coffee -c -o ./dst/ -j printer ./src/visitor.coffee ./src/printer.coffee
-patch ./dst/printer.js ./src/elideRequire.patch
-coffee -c -o ./dst/ -j tree ./src/visitor.coffee ./src/tree.coffee
-patch ./dst/tree.js ./src/elideRequire.patch
-coffee -c -o ./dst/ ./src/nodes.coffee

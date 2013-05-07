@@ -1,6 +1,6 @@
 # server
 
-tester = require './tester'
+tester = require '../force-formula/src/tester'
 express = require 'express'
 
 app = express()
@@ -16,7 +16,7 @@ app.get '/tree.html', (req, res) ->
   res.sendfile './example/tree.html'
 
 app.get /\/dst\/(\w+)\.js/, (req, res) ->
-  res.sendfile "./dst/#{req.params[0]}.js"
+  res.sendfile "./force-formula/dst/#{req.params[0]}.js"
 
 app.get '/test', (req, res) ->
   formula = req.query.formula

@@ -28,40 +28,40 @@
     <link rel="stylesheet" href="navbar.css">
   </head>
   <body>
-        <a href="https://github.com/couchand/force-formula"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-        <div id="navbar">
-            <ul>
-                <li><a href="prettyprint.html">Pretty Printer</a></li>
-                <li><a href="tree.html">Tree Visualization</a></li>
-                <li><a href="test.html">Unit Test Console</a></li>
-            </ul>
-        </div>
-        <textarea rows="20" cols="100" id="src" onKeyUp="gTextArea('src');"></textarea>
-        <div id="viz"></div>
-        <br>
-        <textarea rows="10" cols="100" id="console"></textarea>
-        <button onClick="gTextArea('src');">Graph!</button>
-        <script>
-            var module = {};
-        </script>
-        <script type="text/javascript" src="parser.js"></script>
-        <script type="text/javascript" src="tree.js"></script>
-        <script>
-            var buildTree = module.exports;
-        </script>
-        <script type="text/javascript" src="nodes.js"></script>
-        <script type="text/javascript">
-            parser.yy = module.exports;
-        </script>
-        <script type="text/javascript">
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-40537296-1']);
-          _gaq.push(['_trackPageview']);
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        </script>
+    <a href="https://github.com/couchand/force-formula"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <div id="navbar">
+        <ul>
+            <li><a href="prettyprint.html">Pretty Printer</a></li>
+            <li><a href="tree.html">Tree Visualization</a></li>
+            <li><a href="test.html">Unit Test Console</a></li>
+        </ul>
+    </div>
+    <textarea rows="20" cols="100" id="src" onKeyUp="gTextArea('src');"></textarea>
+    <div id="viz"></div>
+    <br>
+    <textarea rows="10" cols="100" id="console"></textarea>
+    <button onClick="gTextArea('src');">Graph!</button>
+    <script>
+        var module = {};
+    </script>
+    <script type="text/javascript" src="parser.js"></script>
+    <script type="text/javascript" src="tree.js"></script>
+    <script>
+        var buildTree = module.exports;
+    </script>
+    <script type="text/javascript" src="nodes.js"></script>
+    <script type="text/javascript">
+        parser.yy = module.exports;
+    </script>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-40537296-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
   </body>
 </html>

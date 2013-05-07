@@ -3,8 +3,8 @@ function loadFormula() {
         document.getElementById('src').value = localStorage.getItem('formula');
     }
 }
-function saveFormula() {
+function saveFormula(formula) {
     if ( localStorage ) {
-        localStorage.setItem('formula', document.getElementById('src').value);
+        localStorage.setItem('formula', formula);
     }
 }

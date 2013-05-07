@@ -20,7 +20,7 @@
         <script>
             function getTemplate() {
                 var formula = $('#src').val();
-                saveFormula();
+                saveFormula(formula);
                 $.get('test', { formula: formula }, function( template ) {
                     $('#data').val( template );
                 });
@@ -28,7 +28,7 @@
             function runTests() {
                 var formula = $('#src').val();
                 var data = $('#data').val();
-                saveFormula();
+                saveFormula(formula);
                 $.get('test', { formula: formula, data: data }, function( results ) {
                     var resultTable = $('#results').empty();
                     var row = $('<tr>');

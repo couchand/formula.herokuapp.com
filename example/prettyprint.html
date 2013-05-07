@@ -23,15 +23,16 @@
             function ppTextArea( id ) {
                 var pretty,
                     el = document.getElementById( id ),
-                    console = document.getElementById('console');
+                    dst = document.getElementById('dst'),
+                    console = document.getElementById('console'),
                     consoleText = document.getElementById('consoleText');
 
                 consoleText.innerHTML = '';
                 console.className = '';
                 try {
                     pretty = prettyPrint( el.value );
-                    el.value = pretty;
-                    saveFormula();
+                    dst.value = pretty;
+                    saveFormula(pretty);
                 }
                 catch (ex) {
                     consoleText.innerHTML = '' + ex;

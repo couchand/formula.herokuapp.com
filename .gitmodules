@@ -1,0 +1,3 @@
+[submodule "force-formula"]
+	path = force-formula
+	url = git://github.com/couchand/force-formula.git

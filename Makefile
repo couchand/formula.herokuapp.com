@@ -29,7 +29,8 @@ dst/visitor.js: src/visitor.coffee
 dst/apex.js: src/apex.coffee
 	coffee -c -o ./dst/ ./src/apex.coffee
 
+parser: dst/parser.js
 examples: dst/printer.js dst/tree.js
 server: dst/evaluator.js dst/server.js dst/tester.js dst/visitor.js
 other: dst/apex.js
-all: examples server other
+all: parser examples server other

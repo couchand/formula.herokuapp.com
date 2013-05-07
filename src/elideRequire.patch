@@ -1,5 +1,0 @@
-38,41d37
-<   module.exports = FormulaVisitor;
-< 
-<   FormulaVisitor = require('./visitor');
-< 

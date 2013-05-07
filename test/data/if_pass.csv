@@ -1,3 +1,0 @@
-message,a,b,c,expected
-"blank value should return else",,1,2,2
-"true value should return if",true,1,2,1

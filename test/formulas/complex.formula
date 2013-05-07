@@ -1,8 +1,0 @@
-if(
-    and(
-        not( foo ),
-        baz
-    ),
-    "foo" & bar,
-    bar & "foo"
-)

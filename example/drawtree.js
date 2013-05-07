@@ -1,5 +1,5 @@
-function gTextArea( id ) {
-    var el = document.getElementById( id ),
+function gTextArea() {
+    var el = document.getElementById('src'),
         console = document.getElementById('console'),
         consoleText = document.getElementById('consoleText');
 

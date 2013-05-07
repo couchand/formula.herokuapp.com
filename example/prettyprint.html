@@ -20,9 +20,9 @@
                 return formatted;
             }
 
-            function ppTextArea( id ) {
+            function ppTextArea() {
                 var pretty,
-                    el = document.getElementById( id ),
+                    el = document.getElementById('src'),
                     dst = document.getElementById('dst'),
                     console = document.getElementById('console'),
                     consoleText = document.getElementById('consoleText');
@@ -74,7 +74,7 @@
             }
         </style>
     </head>
-    <body onLoad="loadFormula();">
+    <body onLoad="loadFormula(ppTextArea);">
         <a href="https://github.com/couchand/force-formula"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <div id="navbar">
             <ul>
@@ -88,8 +88,8 @@
             <p>Pretty printing is a way of formatting source code to improve readability.  It is...</p>
         </div></div>
         <div class="column io">
-            <textarea class="columnContent" id="src" onKeyUp="ppTextArea('src');"></textarea>
-            <button onClick="ppTextArea('src');">Pretty Print!</button>
+            <textarea class="columnContent" id="src" onKeyUp="ppTextArea();"></textarea>
+            <button onClick="ppTextArea();">Pretty Print!</button>
         </div>
         <div class="column io">
             <textarea class="columnContent" id="dst"></textarea>

@@ -1,6 +1,12 @@
-function loadFormula() {
+function loadFormula(cb) {
     if ( localStorage ) {
-        document.getElementById('src').value = localStorage.getItem('formula');
+        var formula = localStorage.getItem('formula');
+        if ( !!formula ) {
+            document.getElementById('src').value = formula;
+            if ( !!cb && "function" === typeof cb) {
+                cb();
+            }
+        }
     }
 }
 function saveFormula(formula) {

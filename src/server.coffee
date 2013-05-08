@@ -18,6 +18,9 @@ app.get '/prettyprint.html', (req, res) ->
 app.get '/tree.html', (req, res) ->
   res.sendfile './example/tree.html'
 
+app.get '/test.js', (req, res) ->
+  res.sendfile './example/test.js'
+
 app.get '/drawtree.js', (req, res) ->
   res.sendfile "./example/drawtree.js"
 

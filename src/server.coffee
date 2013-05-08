@@ -46,9 +46,9 @@ app.get '/test', (req, res) ->
     res.send "Formula required!"
     return
   if not data?
-    res.send tester.getTemplate formula
+    res.json tester.getUnbound formula
   else
-    tester.test formula, data, (results) ->
+    tester.testJson formula, data, (results) ->
       res.json results
 
 port = process.env.PORT or 5000

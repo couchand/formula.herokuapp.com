@@ -8,33 +8,19 @@ function loadFields() {
                 return getTemplate();
             }
 
-            cols = [], rows = [], actualCol = -1;
+            var cols = [];
 
-            $.each( d.split('\n'), function (i, row) {
+            $.each( d, function (i, row) {
                 if ( i === 0 ) {
-                    $.each( row.split(','), function (j, col) {
-                        if ( col === 'actual' ) {
-                            actualCol = j;
-                            return;
-                        }
+                    $.each( row, function (col) {
+                        if ( col === 'actual' ) return;
                         cols.push( field( col ) );
                     });
                     return;
                 }
-
-                var me = {};
-                $.each( row.split(','), function (j, cell) {
-                    if ( j === actualCol ) return;
-                    me[cols[j].field] = cell;
-                });
-                rows.push( me );
             });
 
-            slickgrid = new Slick.Grid('#dataGrid', rows, cols, {
-                editable: true,
-                enableAddRow: true,
-                enableColumnReorder: false
-            });
+            createSlickGrid( d, cols );
         });
     });
 }
@@ -58,61 +44,49 @@ function getTemplate() {
 
     saveFormula(formula);
 
-    $.get('test', { formula: formula }, function( template ) {
-        $('#data').val( template );
+    $.get('test', { formula: formula }, function( unbound ) {
+        $('#data').val( unbound );
 
         var columns = [];
 
         columns.push( field( 'message', 250 ) );
 
-        $.each( template.split(','), function(index, property) {
+        $.each( unbound, function(index, property) {
             if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
                 columns.push( field( property ) );
             }
         });
 
         columns.push( field( 'expected' ) );
-        columns.push( field( 'actual' ) );
 
-        slickgrid = new Slick.Grid('#dataGrid', [], columns, {
-            editable: true,
-            enableAddRow: true,
-            enableColumnReorder: false
-        });
+        createSlickGrid([], columns);
+    });
+}
+
+function createSlickGrid( rows, cols ) {
+    slickgrid = new Slick.Grid('#dataGrid', rows, cols, {
+        editable: true,
+        enableAddRow: true,
+        enableColumnReorder: false
+    });
+
+    slickgrid.onAddNewRow.subscribe(function (e, args) {
+        var item = args.item;
+        slickgrid.invalidateRow(slickgrid.getData().length);
+        slickgrid.getData().push(item);
+        slickgrid.updateRowCount();
+        slickgrid.render();
     });
 }
 
 function runTests() {
     var formula = $('#src').val();
-    var data = $('#data').val();
+    var data = slickgrid.getData();
     var failures = {};
 
     if ( !isValid( formula ) ) {
         return;
     }
-
-    var table = [];
-    var r = [];
-    $.each( slickgrid.getColumns(), function( j, col ) {
-        r.push( col.field );
-    });
-    table.push( r.join(',') );
-
-    $.each( slickgrid.getData(), function( i, row ) {
-        var r = [];
-
-        $.each( slickgrid.getColumns(), function( j, col ) {
-            r.push( row[col.field] );
-        });
-
-        table.push( r.join(',') );
-    });
-
-    if ( 1 < table.length ) {
-        data = table.join('\n');
-    }
-
-    console.log(data);
 
     saveFormula(formula);
     saveData(data);
@@ -125,8 +99,14 @@ function runTests() {
         });
 
         var cols = slickgrid.getColumns();
-        cols.push( field( 'actual' ) );
-        slickgrid.setColumns( cols );
+        var foundActual = false;
+        for ( var i in cols ) {
+            foundActual = foundActual || cols[i].field === 'actual';
+        }
+        if ( !foundActual ) {
+            cols.push( field( 'actual' ) );
+            slickgrid.setColumns( cols );
+        }
 
         slickgrid.setData( results );
         slickgrid.setCellCssStyles('failures', failures);

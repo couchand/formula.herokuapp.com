@@ -44,22 +44,22 @@
 
             .column {
                 height: 70%;
-                width: 50%;
+                width: 33%;
                 float: left;
             }
             .columnContent {
                 height: 100%;
-                width: 96%;
+                width: 93%;
                 margin: 0 auto;
             }
             .columnContent textarea {
+                height: 100%;
                 width: 100%;
-                height: 25%;
             }
 
             button {
                 float: right;
-                margin: 10px -5px;
+                margin: 10px 3.5%;
                 padding: 10px 30px;
             }
     </style>
@@ -73,15 +73,23 @@
             <li><a href="test.html">Unit Test Console</a></li>
         </ul>
     </div>
-    <div class="column"><div class="columnContent">
-        <div id="viz"></div>
-        <textarea id="src" onKeyUp="gTextArea();"></textarea>
+    <div class="column io">
+        <div class="columnContent">
+            <textarea id="src" onKeyUp="gTextArea();"></textarea>
+        </div>
         <button onClick="gTextArea();">Graph!</button>
-    </div></div>
-    <div class="column"><div class="columnContent">
-        <h2>Tree Visualization</h3>
-        <p>This tree visualization is a representation of the abstract syntax tree defined by a piece of code.  Like pretty printing it is a way of getting a better understanding of the logical structure of a formula.</p>
-    </div></div>
+    </div>
+    <div class="column io">
+        <div class="columnContent">
+            <div id="viz"></div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="columnContent">
+            <h2>Tree Visualization</h3>
+            <p>This tree visualization is a representation of the abstract syntax tree defined by a piece of code.  Like pretty printing it is a way of getting a better understanding of the logical structure of a formula.</p>
+        </div>
+    </div>
     <div id="console"><pre><span id="consoleText"></span></div>
     <script type="text/javascript">
       var _gaq = _gaq || [];

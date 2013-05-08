@@ -64,7 +64,6 @@ function getTemplate() {
 function runTests() {
     var formula = $('#src').val();
     var data = $('#data').val();
-    var columns = [], rows = [];
     var failures = {};
 
     if ( !isValid( formula ) ) {
@@ -74,51 +73,13 @@ function runTests() {
     saveFormula(formula);
 
     $.get('test', { formula: formula, data: data }, function( results ) {
-        var resultTable = $('#results').empty();
-        var row = $('<tr>');
-
-        columns.push( field( 'message', 250 ) );
-
-        $.each( results[0], function(property, value) {
-            row.append( $('<th>').text( property ) );
-
-            if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
-                columns.push( field( property ) );
-            }
-        });
-        row.appendTo( resultTable );
-
-        columns.push( field( 'expected' ) );
-        columns.push( field( 'actual' ) );
-
         $.each( results, function (index, result) {
-            var row = $('<tr>'), dataRow = {};
-
-            row.append( $('<td>').text( result.message ) );
-
-            $.each( result, function(property, value) {
-                dataRow[property] = value;
-
-                if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
-                    row.append( $('<td>').text( value ) );
-                }
-            });
-
-            row.append( $('<td>').text( result.expected ) );
-
-            var actual = $('<td>').text( result.actual );
             if ( result.actual !== result.expected ) {
-                actual.addClass('failure');
-
                 failures[index] = { actual: 'failure' };
             }
-            row.append( actual );
-
-            rows.push( dataRow );
-            row.appendTo( resultTable );
         });
 
-        slickgrid.setData( rows );
+        slickgrid.setData( results );
         slickgrid.setCellCssStyles('failures', failures);
         slickgrid.render();
     });

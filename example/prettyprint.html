@@ -66,10 +66,14 @@
                 width: 93%;
                 margin: 0 auto;
             }
+            .columnContent textarea {
+                height: 100%;
+                width: 100%;
+            }
 
             button {
                 float: right;
-                margin: 10px 2%;
+                margin: 10px 3.5%;
                 padding: 10px 30px;
             }
         </style>
@@ -88,11 +92,15 @@
             <p>Pretty printing is a way of formatting source code to improve readability.  It is...</p>
         </div></div>
         <div class="column io">
-            <textarea class="columnContent" id="src" onKeyUp="ppTextArea();"></textarea>
+            <div class="columnContent">
+                <textarea id="src" onKeyUp="ppTextArea();"></textarea>
+            </div>
             <button onClick="ppTextArea();">Pretty Print!</button>
         </div>
         <div class="column io">
-            <textarea class="columnContent" id="dst"></textarea>
+            <div class="columnContent">
+                <textarea id="dst"></textarea>
+            </div>
         </div>
         <div id="console"><pre><span id="consoleText"></span></div>
         <script type="text/javascript">

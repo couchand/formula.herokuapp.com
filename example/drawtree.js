@@ -3,16 +3,12 @@ function gTextArea() {
         console = document.getElementById('console'),
         consoleText = document.getElementById('consoleText');
 
-    console.className = '';
-    consoleText.innerHTML = '';
-    try {
-        renderTree( buildTree( parser.parse( el.value ) ) );
-        saveFormula(el.value);
+    if ( !isValid( el.value ) ) {
+        return;
     }
-    catch (ex) {
-        console.className = 'err';
-        consoleText.innerHTML = '' + ex;
-    }
+
+    renderTree( buildTree( parser.parse( el.value ) ) );
+    saveFormula(el.value);
 }
 
 function renderTree(treeData) {

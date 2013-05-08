@@ -27,6 +27,9 @@ app.get '/drawtree.js', (req, res) ->
 app.get '/persist.js', (req, res) ->
   res.sendfile "./example/persist.js"
 
+app.get '/validate.js', (req, res) ->
+  res.sendfile "./example/validate.js"
+
 app.get /\/lib\/(.+)/, (req, res) ->
   res.sendfile "./lib/#{req.params[0]}"
 

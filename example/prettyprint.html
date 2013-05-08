@@ -13,6 +13,7 @@
         </script>
         <script type="text/javascript" src="nodes.js"></script>
         <script type="text/javascript" src="persist.js"></script>
+        <script type="text/javascript" src="validate.js"></script>
         <script>
             parser.yy = module.exports;
 
@@ -29,17 +30,12 @@
                     console = document.getElementById('console'),
                     consoleText = document.getElementById('consoleText');
 
-                consoleText.innerHTML = '';
-                console.className = '';
-                try {
-                    pretty = prettyPrint( el.value );
-                    dst.value = pretty;
-                    saveFormula(pretty);
+                if ( !isValid( el.value ) ) {
+                    return;
                 }
-                catch (ex) {
-                    consoleText.innerHTML = '' + ex;
-                    console.className = 'err';
-                }
+                pretty = prettyPrint( el.value );
+                dst.value = pretty;
+                saveFormula(pretty);
             }
         </script>
     </head>

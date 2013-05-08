@@ -63,6 +63,29 @@ function runTests() {
         return;
     }
 
+    var table = [];
+    var r = [];
+    $.each( slickgrid.getColumns(), function( j, col ) {
+        r.push( col.field );
+    });
+    table.push( r.join(',') );
+
+    $.each( slickgrid.getData(), function( i, row ) {
+        var r = [];
+
+        $.each( slickgrid.getColumns(), function( j, col ) {
+            r.push( row[col.field] );
+        });
+
+        table.push( r.join(',') );
+    });
+
+    if ( 1 < table.length ) {
+        data = table.join('\n');
+    }
+
+    console.log(data);
+
     saveFormula(formula);
     saveData(data);
 

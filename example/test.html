@@ -62,9 +62,9 @@
                 return false;
             }
 
-            function field( property ) {
+            function field( property, minWidth ) {
                 return {
-                    minWidth: property == "message" ? 60 : 30,
+                    minWidth: !!minWidth ? minWidth : 30,
                     name: property,
                     field: property,
                     id: property
@@ -99,7 +99,7 @@
                     var resultTable = $('#results').empty();
                     var row = $('<tr>');
 
-                    columns.push( field( 'message' ) );
+                    columns.push( field( 'message', 250 ) );
 
                     $.each( results[0], function(property, value) {
                         row.append( $('<th>').text( property ) );

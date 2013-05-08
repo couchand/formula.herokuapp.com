@@ -15,6 +15,8 @@
             }
         </style>
         <link rel="stylesheet" href="navbar.css">
+        <link rel="stylesheet" href="console.css">
+        <link rel="stylesheet" href="layout.css">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="persist.js"></script>
         <script>
@@ -71,12 +73,24 @@
                 <li class="active"><a href="test.html">Unit Test Console</a></li>
             </ul>
         </div>
-        <textarea rows="30" cols="100" id="src"></textarea>
-        <textarea rows="30" cols="50" id="data"></textarea>
-        <table id="results" cellspacing="0"></table>
-        <br>
-        <button onClick="getTemplate();">Get Template</button>
-        <button onClick="runTests();">Run Tests</button>
+        <div class="column io">
+            <div class="columnContent">
+                <textarea id="src"></textarea>
+            </div>
+            <button onClick="runTests();">Run Tests</button>
+            <button onClick="getTemplate();">Get Template</button>
+        </div>
+        <div class="column2 io">
+            <div class="columnContent">
+                <div class="description">
+                    <h2>Tree Visualization</h3>
+                    <p>This tree visualization is a representation of the abstract syntax tree defined by a piece of code.  Like pretty printing it is a way of getting a better understanding of the logical structure of a formula.</p>
+                </div>
+                <textarea id="data"></textarea>
+                <table id="results" cellspacing="0"></table>
+            </div>
+        </div>
+        <div id="console"><pre><span id="consoleText"></span></pre></div>
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-40537296-1']);

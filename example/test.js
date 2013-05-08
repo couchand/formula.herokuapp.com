@@ -27,7 +27,7 @@ function loadFields() {
 
 function field( property, minWidth ) {
     return {
-        minWidth: !!minWidth ? minWidth : 30,
+        minWidth: property === 'message' ? 250 : 30,
         editor: Slick.Editors.Text,
         name: property,
         field: property,
@@ -49,7 +49,7 @@ function getTemplate() {
 
         var columns = [];
 
-        columns.push( field( 'message', 250 ) );
+        columns.push( field( 'message' ) );
 
         $.each( unbound, function(index, property) {
             if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {

@@ -24,6 +24,9 @@ app.get '/drawtree.js', (req, res) ->
 app.get '/persist.js', (req, res) ->
   res.sendfile "./example/persist.js"
 
+app.get /\/lib\/(.+)/, (req, res) ->
+  res.sendfile "./lib/#{req.params[0]}"
+
 app.get /\/(\w+)\.js/, (req, res) ->
   res.sendfile "./force-formula/dst/#{req.params[0]}.js"
 

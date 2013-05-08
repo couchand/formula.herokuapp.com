@@ -18,11 +18,45 @@
         <link rel="stylesheet" href="console.css">
         <link rel="stylesheet" href="layout.css">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+            var module = {}
+        </script>
+        <script type="text/javascript" src="parser.js"></script>
+        <script type="text/javascript" src="printer.js"></script>
+        <script>
+            var stringify = module.exports;
+        </script>
+        <script type="text/javascript" src="nodes.js"></script>
         <script type="text/javascript" src="persist.js"></script>
         <script>
+            parser.yy = module.exports;
+
+            function isValid( text ) {
+                var console = document.getElementById('console'),
+                    consoleText = document.getElementById('consoleText');
+
+                consoleText.innerHTML = '';
+                console.className = '';
+                try {
+                    parser.parse( text );
+                    return true;
+                }
+                catch (ex) {
+                    consoleText.innerHTML = '' + ex;
+                    console.className = 'err';
+                }
+                return false;
+            }
+
             function getTemplate() {
                 var formula = $('#src').val();
+
+                if ( !isValid( formula ) ) {
+                    return;
+                }
+
                 saveFormula(formula);
+
                 $.get('test', { formula: formula }, function( template ) {
                     $('#data').val( template );
                 });
@@ -30,7 +64,13 @@
             function runTests() {
                 var formula = $('#src').val();
                 var data = $('#data').val();
+
+                if ( !isValid( formula ) ) {
+                    return;
+                }
+
                 saveFormula(formula);
+
                 $.get('test', { formula: formula, data: data }, function( results ) {
                     var resultTable = $('#results').empty();
                     var row = $('<tr>');

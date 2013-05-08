@@ -1,15 +1,6 @@
 <html>
     <head>
         <style>
-            table {
-                border: thick solid black;
-                display: inline-block;
-            }
-            th, td {
-                border: thin solid gray;
-                padding: 5px 15px;
-                margin: 0;
-            }
             .failure {
                 background-color: red;
             }
@@ -17,7 +8,7 @@
                 height: 33%;
             }
             #dataGrid {
-                height: 20%;
+                height: 33%;
                 width: 100%;
             }
         </style>
@@ -88,6 +79,7 @@
                 var formula = $('#src').val();
                 var data = $('#data').val();
                 var columns = [], rows = [];
+                var failures = {};
 
                 if ( !isValid( formula ) ) {
                     return;
@@ -131,6 +123,8 @@
                         var actual = $('<td>').text( result.actual );
                         if ( result.actual !== result.expected ) {
                             actual.addClass('failure');
+
+                            failures[index] = { actual: 'failure' };
                         }
                         row.append( actual );
 
@@ -141,6 +135,7 @@
                     slickgrid = new Slick.Grid('#dataGrid', rows, columns, {
                         enableColumnReorder: false
                     });
+                    slickgrid.setCellCssStyles('failures', failures);
                 });
             }
         </script>
@@ -169,7 +164,6 @@
                 </div>
                 <div id="dataGrid"></div>
                 <textarea id="data"></textarea>
-                <table id="results" cellspacing="0"></table>
             </div>
         </div>
         <div id="console"><pre><span id="consoleText"></span></pre></div>

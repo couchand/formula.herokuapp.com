@@ -39,8 +39,28 @@ function getTemplate() {
 
     $.get('test', { formula: formula }, function( template ) {
         $('#data').val( template );
+
+        var columns = [];
+
+        columns.push( field( 'message', 250 ) );
+
+        $.each( template.split(','), function(index, property) {
+            if ( property !== 'expected' && property !== 'actual' && property !== 'message' ) {
+                columns.push( field( property ) );
+            }
+        });
+
+        columns.push( field( 'expected' ) );
+        columns.push( field( 'actual' ) );
+
+        slickgrid = new Slick.Grid('#dataGrid', [], columns, {
+            editable: true,
+            enableAddRow: true,
+            enableColumnReorder: false
+        });
     });
 }
+
 function runTests() {
     var formula = $('#src').val();
     var data = $('#data').val();
@@ -98,11 +118,8 @@ function runTests() {
             row.appendTo( resultTable );
         });
 
-        slickgrid = new Slick.Grid('#dataGrid', rows, columns, {
-            editable: true,
-            enableAddRow: true,
-            enableColumnReorder: false
-        });
+        slickgrid.setData( rows );
         slickgrid.setCellCssStyles('failures', failures);
+        slickgrid.render();
     });
 }

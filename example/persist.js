@@ -4,7 +4,7 @@ function loadFormula(cb) {
         if ( !!formula ) {
             document.getElementById('src').value = formula;
             if ( !!cb && "function" === typeof cb) {
-                cb();
+                cb(formula);
             }
         }
     }
@@ -12,5 +12,22 @@ function loadFormula(cb) {
 function saveFormula(formula) {
     if ( localStorage ) {
         localStorage.setItem('formula', formula);
+    }
+}
+
+function loadData(cb) {
+    if ( localStorage ) {
+        var data = localStorage.getItem('test-data');
+        if ( !!data ) {
+            document.getElementById('data').value = data;
+            if ( !!cb && "function" === typeof cb) {
+                cb(data);
+            }
+        }
+    }
+}
+function saveData(data) {
+    if ( localStorage ) {
+        localStorage.setItem('test-data', data);
     }
 }

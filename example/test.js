@@ -1,6 +1,16 @@
 parser.yy = module.exports;
 var slickgrid;
 
+function loadFields() {
+    loadFormula(function(f) {
+        loadData(function(d) {
+            if ( !!f & !d ) {
+                getTemplate();
+            }
+        });
+    });
+}
+
 function field( property, minWidth ) {
     return {
         minWidth: !!minWidth ? minWidth : 30,
@@ -54,6 +64,7 @@ function runTests() {
     }
 
     saveFormula(formula);
+    saveData(data);
 
     $.get('test', { formula: formula, data: data }, function( results ) {
         $.each( results, function (index, result) {

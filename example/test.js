@@ -5,8 +5,36 @@ function loadFields() {
     loadFormula(function(f) {
         loadData(function(d) {
             if ( !!f & !d ) {
-                getTemplate();
+                return getTemplate();
             }
+
+            cols = [], rows = [], actualCol = -1;
+
+            $.each( d.split('\n'), function (i, row) {
+                if ( i === 0 ) {
+                    $.each( row.split(','), function (j, col) {
+                        if ( col === 'actual' ) {
+                            actualCol = j;
+                            return;
+                        }
+                        cols.push( field( col ) );
+                    });
+                    return;
+                }
+
+                var me = {};
+                $.each( row.split(','), function (j, cell) {
+                    if ( j === actualCol ) return;
+                    me[cols[j].field] = cell;
+                });
+                rows.push( me );
+            });
+
+            slickgrid = new Slick.Grid('#dataGrid', rows, cols, {
+                editable: true,
+                enableAddRow: true,
+                enableColumnReorder: false
+            });
         });
     });
 }
@@ -95,6 +123,10 @@ function runTests() {
                 failures[index] = { actual: 'failure' };
             }
         });
+
+        var cols = slickgrid.getColumns();
+        cols.push( field( 'actual' ) );
+        slickgrid.setColumns( cols );
 
         slickgrid.setData( results );
         slickgrid.setCellCssStyles('failures', failures);

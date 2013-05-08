@@ -21,6 +21,7 @@
         <script type="text/javascript" src="lib/jquery.event.drag.js"></script>
         <script type="text/javascript" src="lib/jquery.event.drop.js"></script>
         <script type="text/javascript" src="http://raw.github.com/mleibman/SlickGrid/master/slick.core.js"></script>
+        <script type="text/javascript" src="http://raw.github.com/mleibman/SlickGrid/master/slick.editors.js"></script>
         <script type="text/javascript" src="http://raw.github.com/mleibman/SlickGrid/master/slick.grid.js"></script>
         <script>
             var module = {}
@@ -56,6 +57,7 @@
             function field( property, minWidth ) {
                 return {
                     minWidth: !!minWidth ? minWidth : 30,
+                    editor: Slick.Editors.Text,
                     name: property,
                     field: property,
                     id: property
@@ -133,6 +135,8 @@
                     });
 
                     slickgrid = new Slick.Grid('#dataGrid', rows, columns, {
+                        editable: true,
+                        enableAddRow: true,
                         enableColumnReorder: false
                     });
                     slickgrid.setCellCssStyles('failures', failures);

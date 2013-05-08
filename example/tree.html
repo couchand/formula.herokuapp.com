@@ -47,6 +47,11 @@
                 width: 33%;
                 float: left;
             }
+            .column2 {
+                height: 80%;
+                width: 66%;
+                float: left;
+            }
             .columnContent {
                 height: 100%;
                 width: 93%;
@@ -55,6 +60,10 @@
             .columnContent textarea {
                 height: 100%;
                 width: 100%;
+            }
+            .description {
+                width: 70%;
+                margin: 0 auto 5%;
             }
 
             button {
@@ -79,15 +88,13 @@
         </div>
         <button onClick="gTextArea();">Graph!</button>
     </div>
-    <div class="column io">
+    <div class="column2 io">
         <div class="columnContent">
+            <div class="description">
+                <h2>Tree Visualization</h3>
+                <p>This tree visualization is a representation of the abstract syntax tree defined by a piece of code.  Like pretty printing it is a way of getting a better understanding of the logical structure of a formula.</p>
+            </div>
             <div id="viz"></div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="columnContent">
-            <h2>Tree Visualization</h3>
-            <p>This tree visualization is a representation of the abstract syntax tree defined by a piece of code.  Like pretty printing it is a way of getting a better understanding of the logical structure of a formula.</p>
         </div>
     </div>
     <div id="console"><pre><span id="consoleText"></span></div>

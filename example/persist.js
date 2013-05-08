@@ -19,7 +19,6 @@ function loadData(cb) {
     if ( localStorage ) {
         var data = localStorage.getItem('test-data');
         if ( !!data ) {
-            document.getElementById('data').value = data;
             data = JSON.parse( data );
             if ( !!cb && "function" === typeof cb) {
                 cb(data);

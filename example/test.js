@@ -65,8 +65,10 @@ function getTemplate() {
 
 function createSlickGrid( rows, cols ) {
     slickgrid = new Slick.Grid('#dataGrid', rows, cols, {
+        asyncEditorLoading: false,
         editable: true,
         enableAddRow: true,
+        enableCellNavigation: true,
         enableColumnReorder: false
     });
 

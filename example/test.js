@@ -70,6 +70,9 @@ function createSlickGrid( rows, cols ) {
         enableColumnReorder: false
     });
 
+    slickgrid.setSelectionModel( new Slick.CellSelectionModel() );
+    slickgrid.registerPlugin( new Slick.CellExternalCopyManager() );
+
     slickgrid.onAddNewRow.subscribe(function (e, args) {
         var item = args.item;
         slickgrid.invalidateRow(slickgrid.getData().length);

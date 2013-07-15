@@ -41,6 +41,7 @@ function updateTree(source) {
     nodes.forEach(function(n, i) {
         n.id = n.id || ++nextId;
         n.x = i * barHeight;
+        if (n.children && n.children.length === 0) n.children = null;
     });
 
     var node = vis.selectAll("g.node")

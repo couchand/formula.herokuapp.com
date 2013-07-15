@@ -7,49 +7,44 @@ function gTextArea() {
         return;
     }
 
-    renderTree( buildTree( parser.parse( el.value ) ) );
+    var tree = buildTree( parser.parse( el.value ) );
+    tree.x0 = 0;
+    tree.y0 = 0;
+    renderTree( tree );
     saveFormula(el.value);
 }
 
-function renderTree(treeData) {
-    var barHeight = 20,
-        barWidth = 200;
+var barHeight = 20,
+    barWidth = 200;
+var root, tree, vis;
+var nextId = 0;
 
+function renderTree(treeData) {
     // Create a svg canvas
-    var vis = d3.select("#viz").html(null).append("svg:svg")
+    vis = d3.select("#viz").html(null).append("svg:svg")
         .attr("width", 700)
         .attr("height", 400)
       .append("svg:g")
         .attr("transform", "translate(40, 20)");
 
     // Create a tree "canvas"
-    var tree = d3.layout.tree()
+    tree = d3.layout.tree()
         .size([400,100]);
 
-    var diagonal = d3.svg.diagonal()
-    // change x and y (for the left to right tree)
-        .projection(function(d) { return [d.y, d.x]; });
+    updateTree(root = treeData);
+}
 
+function updateTree(source) {
     // Preparing the data for the tree layout, convert data into an array of nodes
-    var nodes = tree.nodes(treeData);
-    // Create an array with all the links
-    var links = tree.links(nodes);
+    var nodes = tree.nodes(root);
 
     nodes.forEach(function(n, i) {
+        n.id = n.id || ++nextId;
         n.x = i * barHeight;
     });
 
-    var link = vis.selectAll("pathlink")
-        .data(links);
-
-    var linkEnter = link.enter()
-      .append("svg:path")
-        .attr("class", "link");
-
-    link.attr("d", diagonal);
-
     var node = vis.selectAll("g.node")
-        .data(nodes);
+        .data(nodes, function(d) { return d.id; });
 
     var nodeEnter = node.enter()
       .append("svg:g")
@@ -61,6 +56,9 @@ function renderTree(treeData) {
         .attr("height", barHeight)
         .attr("width", barWidth);
 
+    node.select("rect")
+        .style("fill", color);
+
     node.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
     // place the name atribute left or right depending if children
@@ -71,4 +69,28 @@ function renderTree(treeData) {
 
     node.select("text")
         .text(function(d) { return d.name; });
+
+    node.on("click", handleClick);
+
+    node.exit().remove();
+
+    nodes.forEach(function(d) {
+        d.x0 = d.x;
+        d.y0 = d.y;
+    });
+}
+
+function handleClick(d) {
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+    } else {
+        d.children = d._children;
+        d._children = null;
+    }
+    updateTree(d);
+}
+
+function color(d) {
+    return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
 }

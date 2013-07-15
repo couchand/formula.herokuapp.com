@@ -40,27 +40,35 @@ function renderTree(treeData) {
     });
 
     var link = vis.selectAll("pathlink")
-        .data(links)
-      .enter().append("svg:path")
-        .attr("class", "link")
-        .attr("d", diagonal)
+        .data(links);
+
+    var linkEnter = link.enter()
+      .append("svg:path")
+        .attr("class", "link");
+
+    link.attr("d", diagonal);
 
     var node = vis.selectAll("g.node")
-        .data(nodes)
-      .enter().append("svg:g")
-      .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+        .data(nodes);
+
+    var nodeEnter = node.enter()
+      .append("svg:g")
+        .attr("class", "node");
 
     // Add the dot at every node
-    node.append("svg:rect")
+    nodeEnter.append("svg:rect")
         .attr("y", -barHeight / 2)
         .attr("height", barHeight)
         .attr("width", barWidth);
 
+    node.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
     // place the name atribute left or right depending if children
-    node.append("svg:text")
+    nodeEnter.append("svg:text")
         .attr("dx", 5.5)
         .attr("dy", 3.5)
-        .attr("class", "label")
+        .attr("class", "label");
+
+    node.select("text")
         .text(function(d) { return d.name; });
 }

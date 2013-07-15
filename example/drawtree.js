@@ -15,7 +15,7 @@ function gTextArea() {
 }
 
 var barHeight = 20,
-    barWidth = 200;
+    barWidth = 350;
 var root, tree, vis;
 var nextId = 0;
 
@@ -81,6 +81,14 @@ function updateTree(source) {
 }
 
 function handleClick(d) {
+    if (d._name) {
+        d.name = d._name;
+        d._name = null;
+    } else {
+        d._name = d.name;
+        d.name = d.value;
+    }
+
     if (d.children) {
         d._children = d.children;
         d.children = null;

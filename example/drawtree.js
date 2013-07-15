@@ -12,16 +12,19 @@ function gTextArea() {
 }
 
 function renderTree(treeData) {
+    var barHeight = 20,
+        barWidth = 200;
+
     // Create a svg canvas
     var vis = d3.select("#viz").html(null).append("svg:svg")
         .attr("width", 700)
         .attr("height", 400)
       .append("svg:g")
-        .attr("transform", "translate(40, 0)"); // shift everything to the right
+        .attr("transform", "translate(40, 20)");
 
     // Create a tree "canvas"
-    var tree = d3.layout.cluster()
-        .size([400,600]);
+    var tree = d3.layout.tree()
+        .size([400,100]);
 
     var diagonal = d3.svg.diagonal()
     // change x and y (for the left to right tree)
@@ -32,9 +35,9 @@ function renderTree(treeData) {
     // Create an array with all the links
     var links = tree.links(nodes);
 
-    console.log(treeData)
-    console.log(nodes)
-    console.log(links)
+    nodes.forEach(function(n, i) {
+        n.x = i * barHeight;
+    });
 
     var link = vis.selectAll("pathlink")
         .data(links)
@@ -49,15 +52,15 @@ function renderTree(treeData) {
         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
     // Add the dot at every node
-    node.append("svg:ellipse")
-        .attr("rx", 33.5)
-        .attr("ry", 9.5);
+    node.append("svg:rect")
+        .attr("y", -barHeight / 2)
+        .attr("height", barHeight)
+        .attr("width", barWidth);
 
     // place the name atribute left or right depending if children
     node.append("svg:text")
-        .attr("x", -1)
-        .attr("dy", 5)
-        .attr("text-anchor", function(d) { return "middle"; })// d.children ? "end" : "start"; })
+        .attr("dx", 5.5)
+        .attr("dy", 3.5)
         .attr("class", "label")
-        .text(function(d) { return d.name; })
+        .text(function(d) { return d.name; });
 }
